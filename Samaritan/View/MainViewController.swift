@@ -46,12 +46,14 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     fileprivate func viewSetUp() {
         // Do any additional setup after loading the view.
         welcomeButton.pulsate()
+        welcomeButton.roundCorners()
+        welcomeButton.setBorder(color: .blue, width: 2.0)
         webView.navigationDelegate = self
         webView.scrollView.delegate = self
         webView.scrollView.maximumZoomScale = 20
         webView.scrollView.minimumZoomScale = 1
         currentZoom = webView.scrollView.zoomScale
-        webView.load("https://www.google.com")
+        webView.load(K.URL.googleURL)
         webView.allowsBackForwardNavigationGestures = true
         webView.isHidden = true
         navToolBar.isHidden = true

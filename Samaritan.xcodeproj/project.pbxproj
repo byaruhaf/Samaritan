@@ -16,6 +16,7 @@
 		5F05723D28CEB19F0060579B /* SamaritanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F05723C28CEB19F0060579B /* SamaritanTests.swift */; };
 		5F05724728CEB19F0060579B /* SamaritanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F05724628CEB19F0060579B /* SamaritanUITests.swift */; };
 		5F05724928CEB19F0060579B /* SamaritanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F05724828CEB19F0060579B /* SamaritanUITestsLaunchTests.swift */; };
+		5F22AC1528D1E539005BD716 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F22AC1428D1E539005BD716 /* Constants.swift */; };
 		5F8C432B28D1BBD600AED26E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 5F8C432A28D1BBD600AED26E /* Realm */; };
 		5F8C432D28D1BBD600AED26E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F8C432C28D1BBD600AED26E /* RealmSwift */; };
 		5F8C432F28D1BC4D00AED26E /* WebHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */; };
@@ -56,6 +57,7 @@
 		5F05724228CEB19F0060579B /* SamaritanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SamaritanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F05724628CEB19F0060579B /* SamaritanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamaritanUITests.swift; sourceTree = "<group>"; };
 		5F05724828CEB19F0060579B /* SamaritanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamaritanUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5F22AC1428D1E539005BD716 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHistoryRecord.swift; sourceTree = "<group>"; };
 		5F8C433028D1BF2900AED26E /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		5F8C433228D1C3E100AED26E /* WKWebView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Extensions.swift"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				5F8C433828D1D17C00AED26E /* App */,
 				5F8C433628D1D12E00AED26E /* Utilities */,
+				5F22AC1628D1E543005BD716 /* Constants */,
 				5F8C433728D1D14700AED26E /* View */,
 				5F8C433428D1D10F00AED26E /* ViewModel */,
 				5F8C433528D1D11800AED26E /* Model */,
@@ -140,6 +143,14 @@
 				5F05724828CEB19F0060579B /* SamaritanUITestsLaunchTests.swift */,
 			);
 			path = SamaritanUITests;
+			sourceTree = "<group>";
+		};
+		5F22AC1628D1E543005BD716 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				5F22AC1428D1E539005BD716 /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		5F8C433428D1D10F00AED26E /* ViewModel */ = {
@@ -340,6 +351,7 @@
 				5F8C433128D1BF2900AED26E /* WebViewModel.swift in Sources */,
 				5F05722828CEB19C0060579B /* SceneDelegate.swift in Sources */,
 				5FFD8C7128D1D96200FD234D /* UIButton+Extension.swift in Sources */,
+				5F22AC1528D1E539005BD716 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
