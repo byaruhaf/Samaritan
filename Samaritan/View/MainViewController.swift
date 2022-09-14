@@ -24,16 +24,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         viewSetUp()
-        
-        //        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack), options: .new, context: nil)
-        //        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward), options: .new, context: nil)
-        
-//        self.backButton?.isEnabled = self.webView.canGoBack
-//        self.forwardButton?.isEnabled = self.webView.canGoForward
-//        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack), options: .new, context: nil)
-//        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward), options: .new, context: nil)
-//
-        
         let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
         let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
         swipeLeftRecognizer.direction = .left
@@ -55,38 +45,14 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.scrollView.minimumZoomScale = 1
         webView.backgroundColor = .systemGray
         currentZoom = webView.scrollView.zoomScale
-//        webView.load(K.URL.googleURL)
-//        webView.load("http://192.168.1.1/index.html#login")
+        //        webView.load(K.URL.googleURL)
+        //        webView.load("http://192.168.1.1/index.html#login")
         webView.load("http://192.168.1.1:8000/webman/index.cgi")
-//        webView.load("xxxxxxxxxxxxxxxxxxxx")
+        //        webView.load("xxxxxxxxxxxxxxxxxxxx")
         webView.allowsBackForwardNavigationGestures = true
         webView.isHidden = true
         navToolBar.isHidden = true
         updateNavButtonsStatus()
-    }
-    
-//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-//        super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-//        if let _ = object as? WKWebView {
-//            if keyPath == #keyPath(WKWebView.canGoBack) {
-//                self.backButton?.isEnabled = self.webView.canGoBack
-//            } else if keyPath == #keyPath(WKWebView.canGoForward) {
-//                self.forwardButton?.isEnabled = self.webView.canGoForward
-//            }
-//        }
-//    }
-//
-    //    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    //        if let _ = object as? WKWebView {
-    //            if keyPath != #keyPath(WKWebView.canGoBack) {
-    //                print("Cant go Back")
-    //            }
-    //        }
-    //    }
-
-    deinit {
-        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack))
-        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward))
     }
     
     fileprivate func updateNavButtonsStatus() {
@@ -164,7 +130,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.isHidden = false
         navToolBar.isHidden = false
         welcomeButton.isHidden = true
-//        webView.load("http://192.168.1.1/index.html#login")
+        //        webView.load("http://192.168.1.1/index.html#login")
     }
     
     
