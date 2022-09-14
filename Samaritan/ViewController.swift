@@ -28,11 +28,9 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
         webView.scrollView.maximumZoomScale = 20
         webView.scrollView.minimumZoomScale = 1
         currentZoom = webView.scrollView.zoomScale
-        
-        
-        webView.load("https://stil.kurir.rs/moda/157971/ovo-su-najstilizovanije-zene-sveta-koja-je-po-vama-br-1-anketa")
+        webView.load("https://www.google.com")
         //        webView.allowsBackForwardNavigationGestures = true
-        webView.isHidden = true
+//        webView.isHidden = true
         navToolBar.isHidden = true
         updateNavButtons()
         
@@ -75,6 +73,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
         }
         
         if (recognizer.direction == .right) {
+            print("Right Right Right Right ")
             if webView.canGoBack {
                 webView.goBack()
             } else {
