@@ -20,7 +20,9 @@
 		5F8C432D28D1BBD600AED26E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F8C432C28D1BBD600AED26E /* RealmSwift */; };
 		5F8C432F28D1BC4D00AED26E /* WebHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */; };
 		5F8C433128D1BF2900AED26E /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C433028D1BF2900AED26E /* WebViewModel.swift */; };
-		5F8C433328D1C3E100AED26E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C433228D1C3E100AED26E /* Extensions.swift */; };
+		5F8C433328D1C3E100AED26E /* WKWebView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C433228D1C3E100AED26E /* WKWebView+Extensions.swift */; };
+		5FFD8C7128D1D96200FD234D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFD8C7028D1D96200FD234D /* UIButton+Extension.swift */; };
+		5FFD8C7328D1D98200FD234D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFD8C7228D1D98200FD234D /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +58,9 @@
 		5F05724828CEB19F0060579B /* SamaritanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamaritanUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHistoryRecord.swift; sourceTree = "<group>"; };
 		5F8C433028D1BF2900AED26E /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
-		5F8C433228D1C3E100AED26E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5F8C433228D1C3E100AED26E /* WKWebView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Extensions.swift"; sourceTree = "<group>"; };
+		5FFD8C7028D1D96200FD234D /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		5FFD8C7228D1D98200FD234D /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +161,9 @@
 		5F8C433628D1D12E00AED26E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				5F8C433228D1C3E100AED26E /* Extensions.swift */,
+				5FFD8C7228D1D98200FD234D /* UIView+Extension.swift */,
+				5FFD8C7028D1D96200FD234D /* UIButton+Extension.swift */,
+				5F8C433228D1C3E100AED26E /* WKWebView+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -327,11 +333,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F8C432F28D1BC4D00AED26E /* WebHistoryRecord.swift in Sources */,
-				5F8C433328D1C3E100AED26E /* Extensions.swift in Sources */,
+				5F8C433328D1C3E100AED26E /* WKWebView+Extensions.swift in Sources */,
+				5FFD8C7328D1D98200FD234D /* UIView+Extension.swift in Sources */,
 				5F05722A28CEB19C0060579B /* MainViewController.swift in Sources */,
 				5F05722628CEB19C0060579B /* AppDelegate.swift in Sources */,
 				5F8C433128D1BF2900AED26E /* WebViewModel.swift in Sources */,
 				5F05722828CEB19C0060579B /* SceneDelegate.swift in Sources */,
+				5FFD8C7128D1D96200FD234D /* UIButton+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
