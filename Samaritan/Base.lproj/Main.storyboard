@@ -28,33 +28,34 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wJC-IB-HBz" customClass="ToolbarController" customModule="Samaritan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="761" width="390" height="49"/>
                                 <items>
-                                    <barButtonItem style="plain" id="mfe-a8-9CX">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="gNp-kh-ohi" userLabel="Back">
-                                            <rect key="frame" x="16" y="9.6666666666666643" width="102" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" image="arrowshape.turn.up.backward.fill" catalog="system"/>
-                                            <connections>
-                                                <action selector="backButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BAg-gq-uCp"/>
-                                            </connections>
-                                        </button>
+                                    <barButtonItem image="arrowshape.turn.up.backward.fill" catalog="system" id="bNV-LD-ZNW" userLabel="Back">
+                                        <connections>
+                                            <action selector="backButtonTapped:" destination="BYZ-38-t0r" id="Pmo-SA-LiB"/>
+                                        </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" id="nAQ-7v-DDp">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="VdL-yO-mrn" userLabel="Forward">
-                                            <rect key="frame" x="272" y="9.6666666666666643" width="102" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" image="arrowshape.turn.up.right.fill" catalog="system"/>
-                                            <connections>
-                                                <action selector="forwardButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jLg-8P-RAA"/>
-                                            </connections>
-                                        </button>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="lxe-NU-uRv"/>
+                                    <barButtonItem image="minus.circle.fill" catalog="system" id="sTH-MR-s1g" userLabel="ZoomOut">
+                                        <connections>
+                                            <action selector="zoomOutButtonTapped:" destination="BYZ-38-t0r" id="T6r-VO-6Sa"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Item" image="plus.circle.fill" catalog="system" id="ErS-Qg-Y78" userLabel="ZoomIn">
+                                        <connections>
+                                            <action selector="zoomInButtonTapped:" destination="BYZ-38-t0r" id="Ixz-Tr-eCF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="iSo-G5-WRa"/>
+                                    <barButtonItem image="arrowshape.turn.up.right.fill" catalog="system" id="ewJ-qD-Mgq" userLabel="Forward">
+                                        <connections>
+                                            <action selector="forwardButtonTapped:" destination="BYZ-38-t0r" id="afs-1P-BZF"/>
+                                        </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7o-sI-Lwb">
-                                <rect key="frame" x="147.66666666666666" y="404.66666666666669" width="95" height="35"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="147.66666666666666" y="405" width="95" height="34.333333333333314"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Welcome"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Welcome"/>
                                 <connections>
                                     <action selector="welcomeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EOc-B7-80s"/>
@@ -76,11 +77,13 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="gNp-kh-ohi" id="7d0-5z-Cap"/>
-                        <outlet property="forwardButton" destination="VdL-yO-mrn" id="a0t-uy-vOO"/>
+                        <outlet property="backButton" destination="bNV-LD-ZNW" id="0Cz-yK-fFx"/>
+                        <outlet property="forwardButton" destination="ewJ-qD-Mgq" id="64R-HG-Gbe"/>
                         <outlet property="navToolBar" destination="wJC-IB-HBz" id="36g-ZI-OC1"/>
                         <outlet property="webView" destination="vKm-PA-fvY" id="pjN-GC-KAw"/>
                         <outlet property="welcomeButton" destination="X7o-sI-Lwb" id="cXf-eF-TW3"/>
+                        <outlet property="zoomInButton" destination="ErS-Qg-Y78" id="TLR-lG-zTn"/>
+                        <outlet property="zoomOutButton" destination="sTH-MR-s1g" id="laS-1P-VGC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -91,6 +94,8 @@
     <resources>
         <image name="arrowshape.turn.up.backward.fill" catalog="system" width="128" height="104"/>
         <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="104"/>
+        <image name="minus.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
