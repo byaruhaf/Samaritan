@@ -24,13 +24,16 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         viewSetUp()
+        gestureSetup()
+    }
+    
+    fileprivate func gestureSetup() {
         let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
         let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
         swipeLeftRecognizer.direction = .left
         swipeRightRecognizer.direction = .right
         self.view.addGestureRecognizer(swipeLeftRecognizer)
         self.view.addGestureRecognizer(swipeRightRecognizer)
-        
     }
     
     fileprivate func viewSetUp() {
