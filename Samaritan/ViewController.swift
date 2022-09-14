@@ -7,6 +7,8 @@
 
 import UIKit
 import WebKit
+import RealmSwift
+
 
 class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelegate {
     @IBOutlet weak var webView: WKWebView!
@@ -17,6 +19,8 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
     @IBOutlet weak var zoomInButton: UIBarButtonItem!
     @IBOutlet weak var welcomeButton: UIButton!
     var currentZoom:CGFloat = 0.0
+    let realm = try! Realm() // Openrealm
+    let webViewModel = WebViewModel()
     
     
     
@@ -32,7 +36,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
         webView.allowsBackForwardNavigationGestures = true
         webView.isHidden = true
         navToolBar.isHidden = true
-        updateNavButtons()
+        updateNavButtonsStatus()
         
         //        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack), options: .new, context: nil)
         //        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward), options: .new, context: nil)
@@ -59,94 +63,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
     //        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward))
     //    }
     
-    
-    @objc private func handleSwipe(recognizer: UISwipeGestureRecognizer) {
-        if (recognizer.direction == .left) {
-            print("Left Left Left Left ")
-            if webView.canGoForward {
-                webView.isHidden = false
-                welcomeButton.isHidden = true
-                webView.goForward()
-            } else {
-                print("Cant go Forward")
-            }
-        }
-        
-        if (recognizer.direction == .right) {
-            print("Right Right Right Right ")
-            if webView.canGoBack {
-                webView.goBack()
-            } else {
-                //            print("Cant go Back")
-                welcomeButton.isHidden = false
-                webView.isHidden = true
-                
-                if webView.canGoForward {
-                    navToolBar.isHidden = false
-                    updateNavButtons()
-                } else {
-                    navToolBar.isHidden = true
-                    updateNavButtons()
-                }
-            }
-        }
-    }
-    
-    
-    @IBAction func forwardButtonTapped(_ sender: Any) {
-        print("forwardButtonTapped Tapp")
-        if webView.canGoForward {
-            webView.isHidden = false
-            welcomeButton.isHidden = true
-            webView.goForward()
-        } else {
-            print("Cant go Forward")
-        }
-    }
-    
-    @IBAction func backButtonTapped(_ sender: Any) {
-        print("backButtonTapped Tapp")
-        if webView.canGoBack {
-            webView.goBack()
-        } else {
-            //            print("Cant go Back")
-            welcomeButton.isHidden = false
-            webView.isHidden = true
-            
-            if webView.canGoForward {
-                navToolBar.isHidden = false
-                updateNavButtons()
-            } else {
-                navToolBar.isHidden = true
-                updateNavButtons()
-            }
-        }
-    }
-    
-    
-    @IBAction func zoomOutButtonTapped(_ sender: Any) {
-        print("Zoom OUT")
-        print(currentZoom)
-        currentZoom -= 1
-        self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-    }
-    @IBAction func zoomInButtonTapped(_ sender: Any) {
-        print("Zoom IN")
-        print(currentZoom)
-        currentZoom += 1
-        self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-    }
-    
-    
-    @IBAction func welcomeButtonTapped(_ sender: Any) {
-        webView.isHidden = false
-        navToolBar.isHidden = false
-        welcomeButton.isHidden = true
-    }
-    
-    func updateNavButtons() {
-        //        forwardButton.isEnabled = false
-        //        backButton.isEnabled = false
+    fileprivate func updateNavButtonsStatus() {
         if webView.canGoForward {
             forwardButton.isEnabled = true
         } else {
@@ -159,8 +76,72 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
         }
     }
     
+    fileprivate func navForward() {
+        if webView.canGoForward {
+            webView.isHidden = false
+            welcomeButton.isHidden = true
+            webView.goForward()
+        } else {
+            print("Cant go Forward")
+        }
+    }
+    
+    fileprivate func navBackward() {
+        if webView.canGoBack {
+            webView.goBack()
+        } else {
+            welcomeButton.isHidden = false
+            webView.isHidden = true
+            
+            if webView.canGoForward {
+                navToolBar.isHidden = false
+                updateNavButtonsStatus()
+            } else {
+                navToolBar.isHidden = true
+                updateNavButtonsStatus()
+            }
+        }
+    }
+    
+    @objc private func handleSwipe(recognizer: UISwipeGestureRecognizer) {
+        if (recognizer.direction == .left) {
+            navForward()
+        }
+        
+        if (recognizer.direction == .right) {
+            navBackward()
+        }
+    }
+    
+    
+    @IBAction func forwardButtonTapped(_ sender: Any) {
+        navForward()
+    }
+    
+    @IBAction func backButtonTapped(_ sender: Any) {
+        navBackward()
+    }
+    
+    
+    @IBAction func zoomOutButtonTapped(_ sender: Any) {
+        currentZoom -= 1
+        self.webView.scrollView.setZoomScale(currentZoom, animated: true)
+    }
+    @IBAction func zoomInButtonTapped(_ sender: Any) {
+        currentZoom += 1
+        self.webView.scrollView.setZoomScale(currentZoom, animated: true)
+    }
+    
+    
+    @IBAction func welcomeButtonTapped(_ sender: Any) {
+        webView.isHidden = false
+        navToolBar.isHidden = false
+        welcomeButton.isHidden = true
+    }
+    
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        updateNavButtons()
+        updateNavButtonsStatus()
     }
     
 }
@@ -181,11 +162,4 @@ extension ViewController: WKUIDelegate {
 }
 
 
-extension WKWebView {
-    func load(_ urlString: String) {
-        if let url = URL(string: urlString) {
-            let request = URLRequest(url: url)
-            load(request)
-        }
-    }
-}
+

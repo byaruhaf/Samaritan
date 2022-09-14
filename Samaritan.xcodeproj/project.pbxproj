@@ -19,6 +19,8 @@
 		5F8C432B28D1BBD600AED26E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 5F8C432A28D1BBD600AED26E /* Realm */; };
 		5F8C432D28D1BBD600AED26E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F8C432C28D1BBD600AED26E /* RealmSwift */; };
 		5F8C432F28D1BC4D00AED26E /* WebHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */; };
+		5F8C433128D1BF2900AED26E /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C433028D1BF2900AED26E /* WebViewModel.swift */; };
+		5F8C433328D1C3E100AED26E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C433228D1C3E100AED26E /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		5F05724628CEB19F0060579B /* SamaritanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamaritanUITests.swift; sourceTree = "<group>"; };
 		5F05724828CEB19F0060579B /* SamaritanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamaritanUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHistoryRecord.swift; sourceTree = "<group>"; };
+		5F8C433028D1BF2900AED26E /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
+		5F8C433228D1C3E100AED26E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 				5F05722528CEB19C0060579B /* AppDelegate.swift */,
 				5F05722728CEB19C0060579B /* SceneDelegate.swift */,
 				5F05722928CEB19C0060579B /* ViewController.swift */,
+				5F8C433228D1C3E100AED26E /* Extensions.swift */,
+				5F8C433028D1BF2900AED26E /* WebViewModel.swift */,
 				5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */,
 				5F05722B28CEB19C0060579B /* Main.storyboard */,
 				5F05722E28CEB19E0060579B /* Assets.xcassets */,
@@ -273,8 +279,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F8C432F28D1BC4D00AED26E /* WebHistoryRecord.swift in Sources */,
+				5F8C433328D1C3E100AED26E /* Extensions.swift in Sources */,
 				5F05722A28CEB19C0060579B /* ViewController.swift in Sources */,
 				5F05722628CEB19C0060579B /* AppDelegate.swift in Sources */,
+				5F8C433128D1BF2900AED26E /* WebViewModel.swift in Sources */,
 				5F05722828CEB19C0060579B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
