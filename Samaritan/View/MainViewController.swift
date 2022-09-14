@@ -21,10 +21,31 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     let webViewModel = WebViewModel()
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewSetUp()
+        
+        //        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack), options: .new, context: nil)
+        //        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward), options: .new, context: nil)
+        
+        self.backButton?.isEnabled = self.webView.canGoBack
+        self.forwardButton?.isEnabled = self.webView.canGoForward
+        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack), options: .new, context: nil)
+        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward), options: .new, context: nil)
+        
+        
+        let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
+        let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
+        swipeLeftRecognizer.direction = .left
+        swipeRightRecognizer.direction = .right
+        self.view.addGestureRecognizer(swipeLeftRecognizer)
+        self.view.addGestureRecognizer(swipeRightRecognizer)
+        
+    }
+    
+    fileprivate func viewSetUp() {
         // Do any additional setup after loading the view.
+        welcomeButton.pulsate()
         webView.navigationDelegate = self
         webView.scrollView.delegate = self
         webView.scrollView.maximumZoomScale = 20
@@ -35,23 +56,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.isHidden = true
         navToolBar.isHidden = true
         updateNavButtonsStatus()
-        
-        //        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack), options: .new, context: nil)
-        //        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward), options: .new, context: nil)
-        
-        self.backButton?.isEnabled = self.webView.canGoBack
-        self.forwardButton?.isEnabled = self.webView.canGoForward
-        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack), options: .new, context: nil)
-        self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward), options: .new, context: nil)
-
-        
-        let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
-        let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
-        swipeLeftRecognizer.direction = .left
-        swipeRightRecognizer.direction = .right
-        self.view.addGestureRecognizer(swipeLeftRecognizer)
-        self.view.addGestureRecognizer(swipeRightRecognizer)
-        
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -73,10 +77,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     //        }
     //    }
     //
-        deinit {
-            webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack))
-            webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward))
-        }
+    deinit {
+        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoBack))
+        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.canGoForward))
+    }
     
     fileprivate func updateNavButtonsStatus() {
         if webView.canGoForward {
