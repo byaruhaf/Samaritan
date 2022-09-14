@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  Samaritan
 //
 //  Created by Franklin Byaruhanga on 12/09/2022.
@@ -9,7 +9,7 @@ import UIKit
 import WebKit
 
 
-class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelegate {
+class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelegate {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var navToolBar: UIToolbar!
     @IBOutlet weak var forwardButton: UIBarButtonItem!
@@ -147,7 +147,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
 }
 
 
-extension ViewController: WKUIDelegate {
+extension MainViewController: WKUIDelegate {
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         
