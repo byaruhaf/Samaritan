@@ -17,6 +17,7 @@
 		5F05724728CEB19F0060579B /* SamaritanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F05724628CEB19F0060579B /* SamaritanUITests.swift */; };
 		5F05724928CEB19F0060579B /* SamaritanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F05724828CEB19F0060579B /* SamaritanUITestsLaunchTests.swift */; };
 		5F22AC1528D1E539005BD716 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F22AC1428D1E539005BD716 /* Constants.swift */; };
+		5F4E157828D22C7E00DEF0AC /* Logger+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E157728D22C7E00DEF0AC /* Logger+Extension.swift */; };
 		5F8C432B28D1BBD600AED26E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 5F8C432A28D1BBD600AED26E /* Realm */; };
 		5F8C432D28D1BBD600AED26E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F8C432C28D1BBD600AED26E /* RealmSwift */; };
 		5F8C432F28D1BC4D00AED26E /* WebHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */; };
@@ -58,6 +59,7 @@
 		5F05724628CEB19F0060579B /* SamaritanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamaritanUITests.swift; sourceTree = "<group>"; };
 		5F05724828CEB19F0060579B /* SamaritanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamaritanUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5F22AC1428D1E539005BD716 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5F4E157728D22C7E00DEF0AC /* Logger+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extension.swift"; sourceTree = "<group>"; };
 		5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHistoryRecord.swift; sourceTree = "<group>"; };
 		5F8C433028D1BF2900AED26E /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		5F8C433228D1C3E100AED26E /* WKWebView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Extensions.swift"; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				5FFD8C7228D1D98200FD234D /* UIView+Extension.swift */,
 				5FFD8C7028D1D96200FD234D /* UIButton+Extension.swift */,
 				5F8C433228D1C3E100AED26E /* WKWebView+Extensions.swift */,
+				5F4E157728D22C7E00DEF0AC /* Logger+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				5F05722828CEB19C0060579B /* SceneDelegate.swift in Sources */,
 				5FFD8C7128D1D96200FD234D /* UIButton+Extension.swift in Sources */,
 				5F22AC1528D1E539005BD716 /* Constants.swift in Sources */,
+				5F4E157828D22C7E00DEF0AC /* Logger+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
