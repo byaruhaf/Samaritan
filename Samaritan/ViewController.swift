@@ -23,10 +23,20 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     @IBAction func forwardButtonTapped(_ sender: Any) {
         print("forwardButtonTapped Tapp")
+        if webView.canGoForward {
+            webView.goForward()
+        } else {
+            print("Cant go Forward")
+        }
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
         print("backButtonTapped Tapp")
+        if webView.canGoBack {
+            webView.goBack()
+        } else {
+            print("Cant go Back")
+        }
     }
     
 }
