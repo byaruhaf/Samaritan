@@ -54,11 +54,12 @@
                                 </items>
                             </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7o-sI-Lwb">
-                                <rect key="frame" x="147.66666666666666" y="405" width="95" height="34.333333333333314"/>
+                                <rect key="frame" x="80" y="386.33333333333331" width="230" height="71.333333333333314"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Welcome"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Welcome">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="48"/>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>

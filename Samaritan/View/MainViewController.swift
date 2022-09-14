@@ -45,6 +45,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     fileprivate func viewSetUp() {
         // Do any additional setup after loading the view.
+        welcomeButton.titleLabel?.font = UIFont.systemFont(ofSize: 48, weight: .bold)
         welcomeButton.pulsate()
         welcomeButton.roundCorners()
         welcomeButton.setBorder(color: .blue, width: 2.0)
