@@ -25,13 +25,13 @@ final class WebViewModel {
             if #available(iOS 14.0, *) {
                 Logger.savingRecord.debug("record successfully saved.")
             } else {
-                print("record successfully saved.")
+                os_log("record successfully saved.", log: OSLog.default, type: .debug)
             }
         } catch let error {
             if #available(iOS 14.0, *) {
                 Logger.savingRecord.error("Failed to save :Error: \(error.localizedDescription)")
             } else {
-                print("Failed to save :Error: \(error.localizedDescription)")
+                os_log("Failed to save.....", log: OSLog.default, type: .error)
             }
         }
     }
@@ -50,7 +50,7 @@ final class WebViewModel {
                 if #available(iOS 14.0, *) {
                     Logger.deletingRecord.debug("record successfully deleted.")
                 } else {
-                    print("record successfully deleted.")
+                    os_log("record successfully deleted.", log: OSLog.default, type: .debug)
                 }
                 return LastPageAdded
             }
@@ -58,7 +58,7 @@ final class WebViewModel {
             if #available(iOS 14.0, *) {
                 Logger.deletingRecord.error("Failed to deleted :Error: \(error.localizedDescription)")
             } else {
-                print("Failed to deleted :Error: \(error.localizedDescription)")
+                os_log("Failed to deleted.....", log: OSLog.default, type: .error)
             }
         }
         return LastPageAdded
@@ -70,4 +70,3 @@ final class WebViewModel {
     }
     
 }
-
