@@ -11,10 +11,9 @@ import RealmSwift
 final class WebViewModel {
     let realm = try! Realm() // Openrealm
     
-    func logPageVisit(url: String, pageTitle: String?) {
-
+    func savePageVisit(url: String?, pageTitle: String?) {
         let record = WebHistoryRecord()
-        record.pageURL = url
+        record.pageURL = url ?? ""
         record.pageTitle = pageTitle ?? ""
         record.visitDate = Date()
         
@@ -27,7 +26,8 @@ final class WebViewModel {
         }
     }
     
-    func removeLastPageAdded() {
+    @discardableResult
+    func removeLastPageAdded() -> WebHistoryRecord? {
         // Get all pages in the realm
         let pages = realm.objects(WebHistoryRecord.self)
         let LastPageAdded = pages.last
@@ -37,11 +37,18 @@ final class WebViewModel {
                 try realm.write{
                     realm.delete(LastPageAdded)
                 }
+                return LastPageAdded
             }
         } catch let error {
             print(error)
         }
-
+        return LastPageAdded
     }
+    
+    func isHistoryEmpty() -> Bool {
+        let pages = realm.objects(WebHistoryRecord.self)
+        return pages.last == nil
+    }
+    
 }
 

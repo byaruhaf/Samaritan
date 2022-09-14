@@ -7,7 +7,6 @@
 
 import UIKit
 import WebKit
-import RealmSwift
 
 
 class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelegate {
@@ -19,7 +18,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
     @IBOutlet weak var zoomInButton: UIBarButtonItem!
     @IBOutlet weak var welcomeButton: UIButton!
     var currentZoom:CGFloat = 0.0
-    let realm = try! Realm() // Openrealm
     let webViewModel = WebViewModel()
     
     
@@ -89,6 +87,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
     fileprivate func navBackward() {
         if webView.canGoBack {
             webView.goBack()
+            webViewModel.removeLastPageAdded()
         } else {
             welcomeButton.isHidden = false
             webView.isHidden = true
@@ -142,6 +141,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         updateNavButtonsStatus()
+        webViewModel.savePageVisit(url: webView.url?.absoluteString, pageTitle: webView.title)
     }
     
 }
