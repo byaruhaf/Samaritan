@@ -52,16 +52,26 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7o-sI-Lwb">
+                                <rect key="frame" x="147.66666666666666" y="404.66666666666669" width="95" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Welcome"/>
+                                <connections>
+                                    <action selector="welcomeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EOc-B7-80s"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="X7o-sI-Lwb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="3hE-ZC-bA0"/>
                             <constraint firstItem="vKm-PA-fvY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="47W-cL-IAn"/>
                             <constraint firstItem="wJC-IB-HBz" firstAttribute="top" secondItem="vKm-PA-fvY" secondAttribute="bottom" id="PlO-gi-qKg"/>
                             <constraint firstAttribute="trailing" secondItem="wJC-IB-HBz" secondAttribute="trailing" id="RSe-dp-69m"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vKm-PA-fvY" secondAttribute="trailing" id="Xzx-Mx-5Qz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wJC-IB-HBz" secondAttribute="bottom" id="ivF-rC-mzW"/>
                             <constraint firstItem="vKm-PA-fvY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sBE-Qw-EwE"/>
+                            <constraint firstItem="X7o-sI-Lwb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wJD-hT-usD"/>
                             <constraint firstItem="wJC-IB-HBz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yx8-ST-ayi"/>
                         </constraints>
                     </view>
@@ -70,6 +80,7 @@
                         <outlet property="forwardButton" destination="VdL-yO-mrn" id="a0t-uy-vOO"/>
                         <outlet property="navToolBar" destination="wJC-IB-HBz" id="36g-ZI-OC1"/>
                         <outlet property="webView" destination="vKm-PA-fvY" id="pjN-GC-KAw"/>
+                        <outlet property="welcomeButton" destination="X7o-sI-Lwb" id="cXf-eF-TW3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
