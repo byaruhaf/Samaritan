@@ -9,22 +9,48 @@ import UIKit
 import WebKit
 
 class ViewController: UIViewController, WKNavigationDelegate {
-    var webView: WKWebView!
-    
-    override func loadView() {
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        view = webView
-    }
+    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var navToolBar: UIToolbar!
+    @IBOutlet weak var forwardButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let url = URL(string: "https://stil.kurir.rs/moda/157971/ovo-su-najstilizovanije-zene-sveta-koja-je-po-vama-br-1-anketa")!
-        webView.load(URLRequest(url: url))
+        webView.load("https://www.google.com")
         webView.allowsBackForwardNavigationGestures = true
     }
-
-
+    
+    @IBAction func forwardButtonTapped(_ sender: Any) {
+        print("forwardButtonTapped Tapp")
+    }
+    
+    @IBAction func backButtonTapped(_ sender: Any) {
+        print("backButtonTapped Tapp")
+    }
+    
 }
 
+
+extension ViewController: WKUIDelegate {
+
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+
+        let preferences = WKPreferences()
+        preferences.javaScriptEnabled = true
+        preferences.javaScriptCanOpenWindowsAutomatically = true
+        let configuration = WKWebViewConfiguration()
+        configuration.preferences = preferences
+
+        return WKWebView(frame: webView.frame, configuration: configuration)
+    }
+}
+
+extension WKWebView {
+    func load(_ urlString: String) {
+        if let url = URL(string: urlString) {
+            let request = URLRequest(url: url)
+            load(request)
+        }
+    }
+}
