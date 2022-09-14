@@ -10,7 +10,7 @@ import UIKit.UIColor
 
 struct K {
     struct URL {
-        static let googleURL = "https://cdn.dribbble.com/users/1405795/screenshots/4801691/1.jpg"
+        static let googleURL = "https://www.google.com"
         static let githubTestURL = "https://github1s.com/lynoapp/"
         static let galleryTestURL = "https://stil.kurir.rs/moda/157971/ovo-su-najstilizovanije-zene-sveta-koja-je-po-vama-br-1-anketa"
     }
