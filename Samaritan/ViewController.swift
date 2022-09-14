@@ -29,8 +29,8 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
         webView.scrollView.minimumZoomScale = 1
         currentZoom = webView.scrollView.zoomScale
         webView.load("https://www.google.com")
-        //        webView.allowsBackForwardNavigationGestures = true
-//        webView.isHidden = true
+        webView.allowsBackForwardNavigationGestures = true
+        webView.isHidden = true
         navToolBar.isHidden = true
         updateNavButtons()
         
@@ -41,9 +41,9 @@ class ViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelega
         let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
         swipeLeftRecognizer.direction = .left
         swipeRightRecognizer.direction = .right
+        self.view.addGestureRecognizer(swipeLeftRecognizer)
+        self.view.addGestureRecognizer(swipeRightRecognizer)
         
-        webView.addGestureRecognizer(swipeLeftRecognizer)
-        webView.addGestureRecognizer(swipeRightRecognizer)
     }
     
     //    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
