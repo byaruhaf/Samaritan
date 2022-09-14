@@ -109,15 +109,13 @@
 		5F05722428CEB19C0060579B /* Samaritan */ = {
 			isa = PBXGroup;
 			children = (
-				5F05722528CEB19C0060579B /* AppDelegate.swift */,
-				5F05722728CEB19C0060579B /* SceneDelegate.swift */,
-				5F05722928CEB19C0060579B /* MainViewController.swift */,
-				5F8C433228D1C3E100AED26E /* Extensions.swift */,
-				5F8C433028D1BF2900AED26E /* WebViewModel.swift */,
-				5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */,
-				5F05722B28CEB19C0060579B /* Main.storyboard */,
+				5F8C433828D1D17C00AED26E /* App */,
+				5F8C433628D1D12E00AED26E /* Utilities */,
+				5F8C433728D1D14700AED26E /* View */,
+				5F8C433428D1D10F00AED26E /* ViewModel */,
+				5F8C433528D1D11800AED26E /* Model */,
+				5F8C433928D1D1A300AED26E /* StoryBoards */,
 				5F05722E28CEB19E0060579B /* Assets.xcassets */,
-				5F05723028CEB19E0060579B /* LaunchScreen.storyboard */,
 				5F05723328CEB19E0060579B /* Info.plist */,
 			);
 			path = Samaritan;
@@ -138,6 +136,56 @@
 				5F05724828CEB19F0060579B /* SamaritanUITestsLaunchTests.swift */,
 			);
 			path = SamaritanUITests;
+			sourceTree = "<group>";
+		};
+		5F8C433428D1D10F00AED26E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5F8C433028D1BF2900AED26E /* WebViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5F8C433528D1D11800AED26E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5F8C433628D1D12E00AED26E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5F8C433228D1C3E100AED26E /* Extensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		5F8C433728D1D14700AED26E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5F05722928CEB19C0060579B /* MainViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5F8C433828D1D17C00AED26E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5F05722528CEB19C0060579B /* AppDelegate.swift */,
+				5F05722728CEB19C0060579B /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		5F8C433928D1D1A300AED26E /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				5F05722B28CEB19C0060579B /* Main.storyboard */,
+				5F05723028CEB19E0060579B /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
