@@ -26,5 +26,22 @@ final class WebViewModel {
             print(error)
         }
     }
+    
+    func removeLastPageAdded() {
+        // Get all pages in the realm
+        let pages = realm.objects(WebHistoryRecord.self)
+        let LastPageAdded = pages.last
+        
+        do {
+            if let LastPageAdded = LastPageAdded {
+                try realm.write{
+                    realm.delete(LastPageAdded)
+                }
+            }
+        } catch let error {
+            print(error)
+        }
+
+    }
 }
 
