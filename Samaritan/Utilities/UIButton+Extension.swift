@@ -14,7 +14,7 @@ extension UIButton {
         pulse.fromValue = 0.95
         pulse.toValue = 1.0
         pulse.autoreverses = true
-        pulse.repeatCount = 20
+        pulse.repeatCount = 3
         pulse.initialVelocity = 0.5
         pulse.damping = 1.0
         
@@ -59,7 +59,7 @@ extension UIButton {
     
     func roundCorners() {
         layoutIfNeeded()
-        layer.cornerRadius = frame.size.height/2
+        layer.cornerRadius = 20
         layer.masksToBounds = true
     }
     
