@@ -18,8 +18,14 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     @IBOutlet weak var zoomInButton: UIBarButtonItem!
     @IBOutlet weak var welcomeButton: UIButton!
     @IBOutlet weak var starterView: UIView!
+    
+    @IBOutlet weak var webViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var webViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var starterViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var starterViewTrailingConstraint: NSLayoutConstraint!
 
     var currentZoom:CGFloat = 0.0
+    var isStarterViewSlideOut: Bool = false
     let webViewModel = WebViewModel()
     
     override func viewDidLoad() {
@@ -34,8 +40,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
         swipeLeftRecognizer.direction = .left
         swipeRightRecognizer.direction = .right
-        self.view.addGestureRecognizer(swipeLeftRecognizer)
-        self.view.addGestureRecognizer(swipeRightRecognizer)
+        self.starterView.addGestureRecognizer(swipeLeftRecognizer)
+        self.starterView.addGestureRecognizer(swipeRightRecognizer)
     }
     
     fileprivate func viewSetUp() {
@@ -44,6 +50,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         welcomeButton.pulsate()
         welcomeButton.roundCorners()
         welcomeButton.setBorder(color: .blue, width: 2.0)
+        zoomRestore()
         webView.navigationDelegate = self
         webView.scrollView.delegate = self
         webView.scrollView.maximumZoomScale = 20
@@ -55,17 +62,23 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         //        webView.load("http://192.168.1.1/index.html#login")
         //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         //        webView.load("xxxxxxxxxxxxxxxxxxxx")
-        webView.isHidden = true
+//        webView.isHidden = true
         updateNavButtonsStatus()
     }
     
+    fileprivate func zoomRestore() {
+        guard let savedZoom = UserDefaults.getZoomValue() else { return }
+        currentZoom = savedZoom
+        self.webView.scrollView.setZoomScale(currentZoom, animated: true)
+    }
+    
     fileprivate func updateNavButtonsStatus() {
-        if webView.canGoForward {
+        if webView.canGoForward && !isStarterViewSlideOut{
             forwardButton.isEnabled = true
         } else {
             forwardButton.isEnabled = false
         }
-        if webView.canGoBack || welcomeButton.isHidden {
+        if webView.canGoBack || isStarterViewSlideOut {
             backButton.isEnabled = true
         } else {
             backButton.isEnabled = false
@@ -75,15 +88,18 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     fileprivate func navForward() {
         guard webView.canGoForward else {return}
         webView.fadeIn(0.5)
-        welcomeButton.fadeOut(0.5)
+//        welcomeButton.fadeOut(0.5)
+        starterView.fadeOut(0.5)
             webView.goForward()
         updateNavButtonsStatus()
     }
     
     fileprivate func navBackward() {
         guard webView.canGoBack else {
-            welcomeButton.fadeIn(0.5)
-            webView.fadeOut(0.5)
+//            welcomeButton.fadeIn(0.5)
+//            starterView.fadeIn(0.5)
+//            webView.fadeOut(0.5)
+            slideIn()
             updateNavButtonsStatus()
             return
         }
@@ -123,12 +139,39 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     
+    fileprivate func slideOut() {
+        //        webView.fadeIn(0.5)
+        //        welcomeButton.fadeOut(0.5)
+        UIView.animate(withDuration: 0.75, delay: 0.0, options: .curveEaseOut, animations: {
+            self.starterViewLeadingConstraint.constant = -1000
+            self.starterViewTrailingConstraint.constant = 1000
+            self.view.layoutIfNeeded()
+        }, completion: { finished in
+            self.isStarterViewSlideOut = true
+            self.updateNavButtonsStatus()
+            print("slide green out, red in")
+        })
+    }
+    
+    fileprivate func slideIn() {
+        //        webView.fadeIn(0.5)
+        //        welcomeButton.fadeOut(0.5)
+        UIView.animate(withDuration: 0.75, delay: 0.0, options: .curveEaseOut, animations: {
+            self.starterViewLeadingConstraint.constant = 0
+            self.starterViewTrailingConstraint.constant = 0
+            self.view.layoutIfNeeded()
+        }, completion: { finished in
+            self.isStarterViewSlideOut = false
+            self.updateNavButtonsStatus()
+            print("slide green out, red in")
+        })
+    }
+    
     @IBAction func welcomeButtonTapped(_ sender: Any) {
-        webView.fadeIn(0.5)
-        navToolBar.fadeIn(0.5)
-        welcomeButton.fadeOut(0.5)
+        slideOut()
+        
         //webView.load("http://192.168.1.1/index.html#login")
-        webView.load(K.URL.googleURL)
+        webView.load(K.URL.kagiURL)
         updateNavButtonsStatus()
     }
     
