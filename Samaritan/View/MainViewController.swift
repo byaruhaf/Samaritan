@@ -17,9 +17,9 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     @IBOutlet weak var zoomOutButton: UIBarButtonItem!
     @IBOutlet weak var zoomInButton: UIBarButtonItem!
     @IBOutlet weak var welcomeButton: UIButton!
+
     var currentZoom:CGFloat = 0.0
     let webViewModel = WebViewModel()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     fileprivate func gestureSetup() {
+        webView.allowsBackForwardNavigationGestures = true
         let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
         let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
         swipeLeftRecognizer.direction = .left
@@ -46,15 +47,14 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.scrollView.delegate = self
         webView.scrollView.maximumZoomScale = 20
         webView.scrollView.minimumZoomScale = 1
-        webView.backgroundColor = .systemGray
+        webView.backgroundColor = .red
+        view.backgroundColor = .blue
         currentZoom = webView.scrollView.zoomScale
         //        webView.load(K.URL.googleURL)
         //        webView.load("http://192.168.1.1/index.html#login")
         //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         //        webView.load("xxxxxxxxxxxxxxxxxxxx")
-        webView.allowsBackForwardNavigationGestures = true
         webView.isHidden = true
-        navToolBar.isHidden = true
         updateNavButtonsStatus()
     }
     
@@ -64,43 +64,35 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         } else {
             forwardButton.isEnabled = false
         }
-        if webView.canGoBack {
+        if webView.canGoBack || welcomeButton.isHidden {
             backButton.isEnabled = true
         } else {
             backButton.isEnabled = false
         }
     }
     
-    fileprivate func updateNavToolBarVisibility() {
-        if webView.canGoForward {
-            navToolBar.isHidden = false
-            updateNavButtonsStatus()
-        } else {
-            navToolBar.isHidden = true
-            updateNavButtonsStatus()
-        }
-    }
-    
-    
     fileprivate func navForward() {
         guard webView.canGoForward else {return}
-            webView.isHidden = false
-            welcomeButton.isHidden = true
+        webView.fadeIn(0.5)
+        welcomeButton.fadeOut(0.5)
             webView.goForward()
+        updateNavButtonsStatus()
     }
     
     fileprivate func navBackward() {
         guard webView.canGoBack else {
-            welcomeButton.isHidden = false
-            webView.isHidden = true
-            updateNavToolBarVisibility()
+            welcomeButton.fadeIn(0.5)
+            webView.fadeOut(0.5)
+            updateNavButtonsStatus()
             return
         }
         webView.goBack()
+        updateNavButtonsStatus()
         webViewModel.removeLastPageAdded()
     }
     
     @objc private func handleSwipe(recognizer: UISwipeGestureRecognizer) {
+        guard webView.isHidden || !webView.canGoBack  else { return  }
         if (recognizer.direction == .left) {
             navForward()
         }
@@ -131,11 +123,12 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     
     @IBAction func welcomeButtonTapped(_ sender: Any) {
-        webView.isHidden = false
-        navToolBar.isHidden = false
-        welcomeButton.isHidden = true
+        webView.fadeIn(0.5)
+        navToolBar.fadeIn(0.5)
+        welcomeButton.fadeOut(0.5)
         //webView.load("http://192.168.1.1/index.html#login")
         webView.load(K.URL.googleURL)
+        updateNavButtonsStatus()
     }
     
     
@@ -163,3 +156,62 @@ extension MainViewController: WKUIDelegate {
 
 
 
+
+//func setupWebView() {
+//    webview.translatesAutoresizingMaskIntoConstraints = false
+//    let keys = [
+//        "offlineApplicationCacheIsEnabled",
+//        "aggressiveTileRetentionEnabled",
+//        "screenCaptureEnabled",
+//        "allowsPictureInPictureMediaPlayback",
+//        "fullScreenEnabled",
+//        "largeImageAsyncDecodingEnabled",
+//        "animatedImageAsyncDecodingEnabled",
+//        "developerExtrasEnabled",
+//        "usesPageCache",
+//        "mediaSourceEnabled",
+//        "mockCaptureDevicesPromptEnabled",
+//        "canvasUsesAcceleratedDrawing",
+//        "videoQualityIncludesDisplayCompositingEnabled",
+//        "backspaceKeyNavigationEnabled"
+//    ]
+//    let preferences = webview.configuration.preferences
+//    for index in 0..<keys.count {
+//        guard preferences.value(forKey: keys[index]) != nil else {
+//            continue
+//        }
+//        preferences.setValue(
+//            index != keys.count-1 ? true : false,
+//            forKey: keys[index]
+//        )
+//    }
+//    preferences.javaScriptCanOpenWindowsAutomatically = true
+//    webview.configuration.suppressesIncrementalRendering = true
+//    webview.customUserAgent = safariUA
+//}
+
+
+extension UIView {
+
+    func fadeIn(_ duration: TimeInterval? = 0.2, onCompletion: (() -> Void)? = nil) {
+        self.alpha = 0
+        self.isHidden = false
+        UIView.animate(withDuration: duration!, delay: 0,  options: .curveEaseOut,
+                       animations: { self.alpha = 1 },
+                       completion: { (value: Bool) in
+                          if let complete = onCompletion { complete() }
+                       }
+        )
+    }
+
+    func fadeOut(_ duration: TimeInterval? = 0.2, onCompletion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: duration!, delay: 0,  options: .curveEaseOut,
+                       animations: { self.alpha = 0 },
+                       completion: { (value: Bool) in
+                           self.isHidden = true
+                           if let complete = onCompletion { complete() }
+                       }
+        )
+    }
+
+}
