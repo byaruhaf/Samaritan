@@ -93,6 +93,7 @@
                         <outlet property="backButton" destination="bNV-LD-ZNW" id="0Cz-yK-fFx"/>
                         <outlet property="forwardButton" destination="ewJ-qD-Mgq" id="64R-HG-Gbe"/>
                         <outlet property="navToolBar" destination="wJC-IB-HBz" id="36g-ZI-OC1"/>
+                        <outlet property="starterView" destination="N3M-gJ-ZBn" id="3zh-5R-EDf"/>
                         <outlet property="webView" destination="vKm-PA-fvY" id="pjN-GC-KAw"/>
                         <outlet property="welcomeButton" destination="X7o-sI-Lwb" id="cXf-eF-TW3"/>
                         <outlet property="zoomInButton" destination="ErS-Qg-Y78" id="TLR-lG-zTn"/>
