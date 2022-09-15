@@ -67,22 +67,26 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.scrollView.minimumZoomScale = 1
         webView.backgroundColor = .gray
         zoomRestore()
+        zoomLabel.roundCorners()
+        zoomLabel.alpha = 0
+        zoomLabel.isHidden = true
         
         //        webView.load(K.URL.googleURL)
         //        webView.load("http://192.168.1.1/index.html#login")
         //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         //        webView.load("xxxxxxxxxxxxxxxxxxxx")
+        webView.load(K.URL.kagiURL)
         updateNavButtonsStatus()
     }
     
     fileprivate func zoomRestore() {
         guard let savedZoom = UserDefaults.getZoomValue() else {
             currentZoom = webView.scrollView.zoomScale
-            zoomLabel.text = "\(currentZoom) X"
+            zoomLabel.text = "  \(currentZoom) X  "
             return
         }
         currentZoom = savedZoom
-        zoomLabel.text = "\(currentZoom) X"
+        zoomLabel.text = "  \(currentZoom) X  "
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
     }
     
@@ -164,18 +168,22 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     @IBAction func zoomOutButtonTapped(_ sender: Any) {
         guard currentZoom > 0 else { return }
+        zoomLabel.fadeIn()
         currentZoom -= 1
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-        zoomLabel.text = "\(currentZoom) X"
+        zoomLabel.text = "  \(currentZoom) X  "
         UserDefaults.set(currentZoom: currentZoom)
+//        zoomLabel.fadeOut(8)
 //        updateZoomButtonsStatus()
     }
     @IBAction func zoomInButtonTapped(_ sender: Any) {
         guard currentZoom < 6 else { return }
+        zoomLabel.fadeIn()
         currentZoom += 1
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-        zoomLabel.text = "\(currentZoom) X"
+        zoomLabel.text = "  \(currentZoom) X  "
         UserDefaults.set(currentZoom: currentZoom)
+//        zoomLabel.fadeOut(8)
 //        updateZoomButtonsStatus()
     }
     
@@ -204,9 +212,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     @IBAction func welcomeButtonTapped(_ sender: Any) {
         slideOut()
-        
-        //webView.load("http://192.168.1.1/index.html#login")
-        webView.load(K.URL.kagiURL)
+        zoomRestore()
         updateNavButtonsStatus()
     }
     

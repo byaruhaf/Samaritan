@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // Extending UserDefaults to save zoom
 extension UserDefaults {

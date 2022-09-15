@@ -55,23 +55,29 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3M-gJ-ZBn" userLabel="StarterView">
                                 <rect key="frame" x="0.0" y="59" width="430" height="790"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7o-sI-Lwb">
-                                        <rect key="frame" x="142.66666666666666" y="334" width="144.99999999999997" height="122"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7o-sI-Lwb" userLabel="W Button">
+                                        <rect key="frame" x="92" y="334" width="246" height="122"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="122" id="5ox-8x-hco"/>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" priority="500" constant="121" id="d3W-VY-4ww"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Welcome"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="kagi"/>
+                                        <state key="normal" title="Kagi Search" image="kagi"/>
                                         <connections>
                                             <action selector="welcomeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EOc-B7-80s"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kagi Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Syh-mL-Pod">
-                                        <rect key="frame" x="158" y="464" width="114.33333333333331" height="25.333333333333314"/>
+                                        <rect key="frame" x="158" y="464" width="114" height="25.333333333333314"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJl-sm-Tde">
+                                        <rect key="frame" x="24" y="35" width="127" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -81,10 +87,13 @@
                                     <constraint firstItem="Syh-mL-Pod" firstAttribute="centerX" secondItem="N3M-gJ-ZBn" secondAttribute="centerX" id="Avb-BY-yqg"/>
                                     <constraint firstItem="X7o-sI-Lwb" firstAttribute="centerX" secondItem="N3M-gJ-ZBn" secondAttribute="centerX" id="BwV-97-G5p"/>
                                     <constraint firstItem="X7o-sI-Lwb" firstAttribute="centerY" secondItem="N3M-gJ-ZBn" secondAttribute="centerY" id="D9o-mq-lci"/>
+                                    <constraint firstItem="zJl-sm-Tde" firstAttribute="top" secondItem="N3M-gJ-ZBn" secondAttribute="top" constant="35" id="NHz-1l-Kgn"/>
                                     <constraint firstItem="Syh-mL-Pod" firstAttribute="top" secondItem="X7o-sI-Lwb" secondAttribute="bottom" constant="8" id="PTK-bs-huh"/>
+                                    <constraint firstItem="zJl-sm-Tde" firstAttribute="leading" secondItem="N3M-gJ-ZBn" secondAttribute="leading" constant="24" id="qpv-2C-tl4"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zJl-sm-Tde" secondAttribute="trailing" constant="20" symbolic="YES" id="xot-LA-b6k"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TM9-Tr-kag">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  2X  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TM9-Tr-kag">
                                 <rect key="frame" x="364.66666666666669" y="811" width="49.333333333333314" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -107,7 +116,7 @@
                             <constraint firstAttribute="trailing" secondItem="wJC-IB-HBz" secondAttribute="trailing" id="RSe-dp-69m"/>
                             <constraint firstItem="wJC-IB-HBz" firstAttribute="top" secondItem="TM9-Tr-kag" secondAttribute="bottom" constant="8" id="Vcl-io-6Nx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vKm-PA-fvY" secondAttribute="trailing" id="Xzx-Mx-5Qz"/>
-                            <constraint firstItem="TM9-Tr-kag" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="354" id="Yxy-8g-14W"/>
+                            <constraint firstItem="TM9-Tr-kag" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="250" id="Yxy-8g-14W"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wJC-IB-HBz" secondAttribute="bottom" id="ivF-rC-mzW"/>
                             <constraint firstItem="vKm-PA-fvY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sBE-Qw-EwE"/>
                             <constraint firstItem="N3M-gJ-ZBn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xOT-NZ-avi"/>

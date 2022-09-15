@@ -24,6 +24,7 @@
 		5F8C432F28D1BC4D00AED26E /* WebHistoryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */; };
 		5F8C433128D1BF2900AED26E /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C433028D1BF2900AED26E /* WebViewModel.swift */; };
 		5F8C433328D1C3E100AED26E /* WKWebView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8C433228D1C3E100AED26E /* WKWebView+Extensions.swift */; };
+		5F9C650928D3BDAA005EF01E /* PresentationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C650828D3BDAA005EF01E /* PresentationState.swift */; };
 		5FFD8C7128D1D96200FD234D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFD8C7028D1D96200FD234D /* UIButton+Extension.swift */; };
 		5FFD8C7328D1D98200FD234D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFD8C7228D1D98200FD234D /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHistoryRecord.swift; sourceTree = "<group>"; };
 		5F8C433028D1BF2900AED26E /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		5F8C433228D1C3E100AED26E /* WKWebView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Extensions.swift"; sourceTree = "<group>"; };
+		5F9C650828D3BDAA005EF01E /* PresentationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationState.swift; sourceTree = "<group>"; };
 		5FFD8C7028D1D96200FD234D /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		5FFD8C7228D1D98200FD234D /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				5F8C432E28D1BC4D00AED26E /* WebHistoryRecord.swift */,
+				5F9C650828D3BDAA005EF01E /* PresentationState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				5F05722628CEB19C0060579B /* AppDelegate.swift in Sources */,
 				5F8C433128D1BF2900AED26E /* WebViewModel.swift in Sources */,
 				5F05722828CEB19C0060579B /* SceneDelegate.swift in Sources */,
+				5F9C650928D3BDAA005EF01E /* PresentationState.swift in Sources */,
 				5FFD8C7128D1D96200FD234D /* UIButton+Extension.swift in Sources */,
 				5F51630928D2D8080049EF0F /*  UserDefaults.swift in Sources */,
 				5F22AC1528D1E539005BD716 /* Constants.swift in Sources */,

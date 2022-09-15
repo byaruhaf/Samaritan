@@ -16,7 +16,7 @@ extension UIView {
         )
     }
 
-    func fadeOut(_ duration: TimeInterval? = 0.2, onCompletion: (() -> Void)? = nil) {
+    func fadeOut(_ duration: TimeInterval?, onCompletion: (() -> Void)? = nil) {
         UIView.animate(withDuration: duration!, delay: 0,  options: .curveEaseOut,
                        animations: { self.alpha = 0 },
                        completion: { (value: Bool) in

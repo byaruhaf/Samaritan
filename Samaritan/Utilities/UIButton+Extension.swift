@@ -59,7 +59,7 @@ extension UIButton {
     
     func roundCorners() {
         layoutIfNeeded()
-        layer.cornerRadius = 20
+        layer.cornerRadius = 10
         layer.masksToBounds = true
     }
     
@@ -67,5 +67,14 @@ extension UIButton {
     func setBorder(color: UIColor, width: CGFloat) {
         layer.borderColor = color.cgColor
         layer.borderWidth = width
+    }
+}
+
+
+extension UILabel {
+    func roundCorners() {
+        layoutIfNeeded()
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
     }
 }
