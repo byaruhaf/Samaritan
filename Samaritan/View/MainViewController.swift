@@ -50,7 +50,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         currentZoom = webView.scrollView.zoomScale
         //        webView.load(K.URL.googleURL)
         //        webView.load("http://192.168.1.1/index.html#login")
-        webView.load("http://192.168.1.1:8000/webman/index.cgi")
+        //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         //        webView.load("xxxxxxxxxxxxxxxxxxxx")
         webView.allowsBackForwardNavigationGestures = true
         webView.isHidden = true
@@ -71,32 +71,33 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         }
     }
     
-    fileprivate func navForward() {
+    fileprivate func updateNavToolBarVisibility() {
         if webView.canGoForward {
-            webView.isHidden = false
-            welcomeButton.isHidden = true
-            webView.goForward()
+            navToolBar.isHidden = false
+            updateNavButtonsStatus()
         } else {
-            print("Cant go Forward")
+            navToolBar.isHidden = true
+            updateNavButtonsStatus()
         }
     }
     
+    
+    fileprivate func navForward() {
+        guard webView.canGoForward else {return}
+            webView.isHidden = false
+            welcomeButton.isHidden = true
+            webView.goForward()
+    }
+    
     fileprivate func navBackward() {
-        if webView.canGoBack {
-            webView.goBack()
-            webViewModel.removeLastPageAdded()
-        } else {
+        guard webView.canGoBack else {
             welcomeButton.isHidden = false
             webView.isHidden = true
-            
-            if webView.canGoForward {
-                navToolBar.isHidden = false
-                updateNavButtonsStatus()
-            } else {
-                navToolBar.isHidden = true
-                updateNavButtonsStatus()
-            }
+            updateNavToolBarVisibility()
+            return
         }
+        webView.goBack()
+        webViewModel.removeLastPageAdded()
     }
     
     @objc private func handleSwipe(recognizer: UISwipeGestureRecognizer) {
@@ -133,7 +134,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.isHidden = false
         navToolBar.isHidden = false
         welcomeButton.isHidden = true
-        //        webView.load("http://192.168.1.1/index.html#login")
+        //webView.load("http://192.168.1.1/index.html#login")
+        webView.load(K.URL.googleURL)
     }
     
     
