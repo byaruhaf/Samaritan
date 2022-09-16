@@ -18,10 +18,9 @@ final class WebViewModel {
         self.pages = realm.objects(WebHistoryRecord.self)
     }
     
-    func savePageVisit(url: String?, pageTitle: String?) {
+    func savePageVisit(url: String?) {
         let record = WebHistoryRecord()
         record.pageURL = url ?? ""
-        record.pageTitle = pageTitle ?? ""
         record.visitDate = Date()
         
         do {
@@ -70,7 +69,7 @@ final class WebViewModel {
     
     func isHistoryEmpty() -> Bool {
         let pages = realm.objects(WebHistoryRecord.self)
-        return pages.last == nil
+        return pages.count == 0
     }
     
 }

@@ -81,7 +81,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         welcomeButton.roundCorners()
         welcomeButton.setBorder(color: .lightGray, width: 8.0)
         starterView.backgroundColor = .darkGray
-        starterView.backgroundColor = .blue
     }
     
     fileprivate func viewSetUp() {
@@ -94,8 +93,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.scrollView.minimumZoomScale = 1
         webView.backgroundColor = .clear
         webView.isOpaque = true
-        //        webView.backgroundColor = .red
-        //        webView.restorationIdentifier = "webviewrestoration"
         zoomRestore()
         zoomLabel.roundCorners()
         zoomLabel.alpha = 0
@@ -122,7 +119,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         } else {
             forwardButton.isEnabled = false
         }
+
         if webView.canGoBack || isStarterViewSlideOut {
+            backButton.isEnabled = true
+        } else if !webViewModel.isHistoryEmpty() {
             backButton.isEnabled = true
         } else {
             backButton.isEnabled = false
@@ -138,15 +138,20 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         ViewStateUpdate()
     }
     
-    fileprivate func navBackward() {
-        guard webView.canGoBack else {
-            slideIn()
-            ViewStateUpdate()
-            return
-        }
+    fileprivate func navWebBackward() {
         webView.goBack()
         ViewStateUpdate()
+    }
+    
+    fileprivate func navHistoryBackward() {
         webViewModel.removeLastPageAdded()
+        guard let nextBackURL = webViewModel.pages.last?.pageURL else { return }
+        if nextBackURL == "Favorites" {
+            slideIn()
+        } else {
+            webView.load(nextBackURL)
+        }
+        ViewStateUpdate()
     }
     
     @objc private func handleSwipe(recognizer: UISwipeGestureRecognizer) {
@@ -156,7 +161,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         }
         
         if (recognizer.direction == .right) {
-            navBackward()
+            navWebBackward()
         }
     }
     
@@ -166,15 +171,27 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         ViewStateUpdate()
     }
     
+    var currentItem: WKBackForwardListItem?
+    var listData = [WKBackForwardListItem]()
+    
     func saveHistory() {
-        loadSites(webView.backForwardList)
+        let bfList = webView.backForwardList
+        let items =  bfList.backList + [bfList.currentItem].compactMap({$0})
+        listData = items
         listData.forEach {
             print($0.url.absoluteString)
+            webViewModel.savePageVisit(url: $0.url.absoluteString)
         }
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
-        navBackward()
+        guard webView.canGoBack else {
+            navHistoryBackward()
+            ViewStateUpdate()
+            return
+        }
+        
+        navWebBackward()
         ViewStateUpdate()
         
         
@@ -236,7 +253,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         slideOut()
         if isFirstLoad {
             webView.load(K.URL.kagiURL)
-            webViewModel.savePageVisit(url: "Favorites", pageTitle: "Favorites")
+            webViewModel.savePageVisit(url: "Favorites")
         }
         
         zoomRestore()
@@ -247,24 +264,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         ViewStateUpdate()
-        webViewModel.savePageVisit(url: webView.url?.absoluteString, pageTitle: webView.title)
     }
     
-    var currentItem: WKBackForwardListItem?
-    var listData = [WKBackForwardListItem]()
-    
-    func homeAndNormalPagesOnly(_ bfList: WKBackForwardList) {
-        let items = bfList.forwardList.reversed() + [bfList.currentItem].compactMap({$0}) + bfList.backList.reversed()
-        listData = items
-    }
-    
-    func loadSites(_ bfList: WKBackForwardList) {
-        currentItem = bfList.currentItem
-        
-        homeAndNormalPagesOnly(bfList)
-    }
-    
-    
+
+
     
 }
 
@@ -303,6 +306,7 @@ extension MainViewController {
         if let lastSite = coder.decodeObject(forKey: "lastSite") as? String {
             slideOut()
             webView.load(lastSite)
+            ViewStateUpdate()
         }
     }
 }
