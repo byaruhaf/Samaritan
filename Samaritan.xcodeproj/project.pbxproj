@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5F05722628CEB19C0060579B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F05722528CEB19C0060579B /* AppDelegate.swift */; };
-		5F05722828CEB19C0060579B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F05722728CEB19C0060579B /* SceneDelegate.swift */; };
 		5F05722A28CEB19C0060579B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F05722928CEB19C0060579B /* MainViewController.swift */; };
 		5F05722D28CEB19C0060579B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F05722B28CEB19C0060579B /* Main.storyboard */; };
 		5F05722F28CEB19E0060579B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F05722E28CEB19E0060579B /* Assets.xcassets */; };
@@ -49,7 +48,6 @@
 /* Begin PBXFileReference section */
 		5F05722228CEB19C0060579B /* Samaritan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Samaritan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F05722528CEB19C0060579B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5F05722728CEB19C0060579B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5F05722928CEB19C0060579B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5F05722C28CEB19C0060579B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F05722E28CEB19E0060579B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -200,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				5F05722528CEB19C0060579B /* AppDelegate.swift */,
-				5F05722728CEB19C0060579B /* SceneDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -358,7 +355,6 @@
 				5F05722A28CEB19C0060579B /* MainViewController.swift in Sources */,
 				5F05722628CEB19C0060579B /* AppDelegate.swift in Sources */,
 				5F8C433128D1BF2900AED26E /* WebViewModel.swift in Sources */,
-				5F05722828CEB19C0060579B /* SceneDelegate.swift in Sources */,
 				5F9C650928D3BDAA005EF01E /* PresentationState.swift in Sources */,
 				5FFD8C7128D1D96200FD234D /* UIButton+Extension.swift in Sources */,
 				5F51630928D2D8080049EF0F /*  UserDefaults.swift in Sources */,

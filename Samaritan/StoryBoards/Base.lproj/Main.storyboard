@@ -12,12 +12,12 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="Samaritan" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="mainviewrestoration" id="BYZ-38-t0r" customClass="MainViewController" customModule="Samaritan" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wJC-IB-HBz" customClass="ToolbarController" customModule="Samaritan" customModuleProvider="target">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wJC-IB-HBz">
                                 <rect key="frame" x="0.0" y="849" width="430" height="49"/>
                                 <items>
                                     <barButtonItem image="arrowshape.turn.up.backward.fill" catalog="system" id="bNV-LD-ZNW" userLabel="Back">

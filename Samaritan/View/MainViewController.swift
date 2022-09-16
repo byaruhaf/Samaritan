@@ -54,7 +54,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         welcomeButton.contentMode = .scaleAspectFit
         welcomeButton.roundCorners()
         welcomeButton.setBorder(color: .lightGray, width: 8.0)
-        starterView.backgroundColor = .darkGray
+//        starterView.backgroundColor = .darkGray
+        starterView.backgroundColor = .blue
     }
     
     fileprivate func viewSetUp() {
@@ -65,7 +66,9 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.scrollView.delegate = self
         webView.scrollView.maximumZoomScale = 20
         webView.scrollView.minimumZoomScale = 1
-        webView.backgroundColor = .gray
+//        webView.backgroundColor = .gray
+        webView.backgroundColor = .clear
+        webView.restorationIdentifier = "webviewrestoration"
         zoomRestore()
         zoomLabel.roundCorners()
         zoomLabel.alpha = 0
@@ -75,8 +78,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         //        webView.load("http://192.168.1.1/index.html#login")
         //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         //        webView.load("xxxxxxxxxxxxxxxxxxxx")
-//        webView.load(K.URL.kagiURL)
-        webView.load("http://192.168.1.1:8000/webman/index.cgi")
+//        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         updateNavButtonsStatus()
     }
     
@@ -213,6 +215,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     @IBAction func welcomeButtonTapped(_ sender: Any) {
         slideOut()
+        webView.load(K.URL.kagiURL)
         zoomRestore()
         updateNavButtonsStatus()
     }
@@ -227,7 +230,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
 
 
 extension MainViewController: WKUIDelegate {
-    
+
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         
         let preferences = WKPreferences()
@@ -243,35 +246,21 @@ extension MainViewController: WKUIDelegate {
 
 
 
-//func setupWebView() {
-//    webview.translatesAutoresizingMaskIntoConstraints = false
-//    let keys = [
-//        "offlineApplicationCacheIsEnabled",
-//        "aggressiveTileRetentionEnabled",
-//        "screenCaptureEnabled",
-//        "allowsPictureInPictureMediaPlayback",
-//        "fullScreenEnabled",
-//        "largeImageAsyncDecodingEnabled",
-//        "animatedImageAsyncDecodingEnabled",
-//        "developerExtrasEnabled",
-//        "usesPageCache",
-//        "mediaSourceEnabled",
-//        "mockCaptureDevicesPromptEnabled",
-//        "canvasUsesAcceleratedDrawing",
-//        "videoQualityIncludesDisplayCompositingEnabled",
-//        "backspaceKeyNavigationEnabled"
-//    ]
-//    let preferences = webview.configuration.preferences
-//    for index in 0..<keys.count {
-//        guard preferences.value(forKey: keys[index]) != nil else {
-//            continue
-//        }
-//        preferences.setValue(
-//            index != keys.count-1 ? true : false,
-//            forKey: keys[index]
-//        )
-//    }
-//    preferences.javaScriptCanOpenWindowsAutomatically = true
-//    webview.configuration.suppressesIncrementalRendering = true
-//    webview.customUserAgent = safariUA
-//}
+extension MainViewController {
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        webView.encodeRestorableState(with: coder)
+        let lastSite = webView.url?.absoluteString
+        coder.encode(lastSite, forKey: "lastSite")
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        webView.decodeRestorableState(with: coder)
+        if let lastSite = coder.decodeObject(forKey: "lastSite") as? String {
+            webView.load(lastSite)
+        }
+        starterView.isHidden = true
+        zoomRestore()
+    }
+}
