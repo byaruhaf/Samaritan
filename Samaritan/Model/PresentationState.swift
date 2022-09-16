@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum PresentationState {
+enum PresentedView {
     case starterView
     case webview
 }

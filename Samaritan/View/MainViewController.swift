@@ -29,10 +29,29 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     var isStarterViewSlideOut: Bool = false
     let webViewModel = WebViewModel()
     
+    private var viewTracker: PresentedView = .starterView {
+        didSet {
+            ViewStateUpdate()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewSetUp()
         gestureSetup()
+    }
+    
+    fileprivate func ViewStateUpdate() {
+        switch viewTracker {
+        case .starterView:
+            zoomInButton.isEnabled = false
+            zoomOutButton.isEnabled = false
+            updateNavButtonsStatus()
+        case .webview:
+            zoomInButton.isEnabled = true
+            zoomOutButton.isEnabled = true
+            updateNavButtonsStatus()
+        }
     }
     
     fileprivate func gestureSetup() {
@@ -74,7 +93,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         zoomLabel.roundCorners()
         zoomLabel.alpha = 0
         zoomLabel.isHidden = true
-        updateNavButtonsStatus()
+        ViewStateUpdate()
     }
     
     fileprivate func zoomRestore() {
@@ -87,28 +106,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         zoomLabel.text = "  \(Int(currentZoom)) X  "
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
     }
-    
-    fileprivate func updateZoomButtonsStatus() {
-        if !isStarterViewSlideOut {
-            zoomInButton.isEnabled = false
-            zoomOutButton.isEnabled = false
-        } else {
-            if currentZoom == 0  {
-                zoomInButton.isEnabled = false
-            } else {
-                zoomInButton.isEnabled = true
-            }
-            if currentZoom == 6  {
-                zoomOutButton.isEnabled = false
-            } else {
-                zoomOutButton.isEnabled = true
-            }
-        }
-    }
+
     
     fileprivate func updateNavButtonsStatus() {
-        //        updateZoomButtonsStatus()
-        
+
         if webView.canGoForward || !isStarterViewSlideOut{
             forwardButton.isEnabled = true
         } else {
@@ -127,17 +128,17 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             slideOut()
         }
         webView.goForward()
-        updateNavButtonsStatus()
+        ViewStateUpdate()
     }
     
     fileprivate func navBackward() {
         guard webView.canGoBack else {
             slideIn()
-            updateNavButtonsStatus()
+            ViewStateUpdate()
             return
         }
         webView.goBack()
-        updateNavButtonsStatus()
+        ViewStateUpdate()
         webViewModel.removeLastPageAdded()
     }
     
@@ -155,34 +156,40 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     @IBAction func forwardButtonTapped(_ sender: Any) {
         navForward()
-        updateNavButtonsStatus()
+        ViewStateUpdate()
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
         navBackward()
-        updateNavButtonsStatus()
+        ViewStateUpdate()
     }
     
     
     @IBAction func zoomOutButtonTapped(_ sender: Any) {
-        guard currentZoom > 1 else { return }
+        guard currentZoom > 1 else {
+            zoomOutButton.isEnabled = false
+            return
+        }
+        ViewStateUpdate()
         zoomLabel.fadeIn()
         currentZoom -= 1
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
         zoomLabel.text = "  \(Int(currentZoom)) X  "
         UserDefaults.set(currentZoom: currentZoom)
         //        zoomLabel.fadeOut(8)
-        //        updateZoomButtonsStatus()
     }
     @IBAction func zoomInButtonTapped(_ sender: Any) {
-        guard currentZoom < 5 else { return }
+        guard currentZoom < 5 else {
+            zoomInButton.isEnabled = false
+            return
+        }
+        ViewStateUpdate()
         zoomLabel.fadeIn()
         currentZoom += 1
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
         zoomLabel.text = "  \(Int(currentZoom)) X  "
         UserDefaults.set(currentZoom: currentZoom)
         //        zoomLabel.fadeOut(8)
-        //        updateZoomButtonsStatus()
     }
     
     
@@ -192,8 +199,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             self.starterViewTrailingConstraint.constant = 2000
             self.view.layoutIfNeeded()
         }, completion: { finished in
-            self.isStarterViewSlideOut = true
-            self.updateNavButtonsStatus()
+            self.viewTracker = .webview
+            self.ViewStateUpdate()
         })
     }
     
@@ -203,8 +210,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             self.starterViewTrailingConstraint.constant = 0
             self.view.layoutIfNeeded()
         }, completion: { finished in
-            self.isStarterViewSlideOut = false
-            self.updateNavButtonsStatus()
+            self.viewTracker = .starterView
+            self.ViewStateUpdate()
         })
     }
     
@@ -217,12 +224,12 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
                 webView.load("http://192.168.1.1:8000/webman/index.cgi")
 //        webView.load(K.URL.kagiURL)
         zoomRestore()
-        updateNavButtonsStatus()
+        ViewStateUpdate()
     }
     
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        updateNavButtonsStatus()
+        ViewStateUpdate()
         webViewModel.savePageVisit(url: webView.url?.absoluteString, pageTitle: webView.title)
     }
     
@@ -261,7 +268,7 @@ extension MainViewController {
     override func decodeRestorableState(with coder: NSCoder) {
         //        super.decodeRestorableState(with: coder)
         //        webView.decodeRestorableState(with: coder)
-        starterView.isHidden = true
+        slideOut()
         if let lastSite = coder.decodeObject(forKey: "lastSite") as? String {
             webView.load(lastSite)
         }
