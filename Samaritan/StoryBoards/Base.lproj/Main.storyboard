@@ -56,7 +56,7 @@
                                 <rect key="frame" x="0.0" y="59" width="430" height="790"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7o-sI-Lwb" userLabel="W Button">
-                                        <rect key="frame" x="117.66666666666669" y="334" width="195" height="122"/>
+                                        <rect key="frame" x="110" y="334" width="210" height="122"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="122" id="5ox-8x-hco"/>
@@ -64,7 +64,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Search" image="kagi"/>
+                                        <state key="normal" title="Search   " image="kagi"/>
                                         <connections>
                                             <action selector="welcomeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EOc-B7-80s"/>
                                         </connections>

@@ -32,6 +32,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     var isStarterView: Bool = true
     var isWebView: Bool = false
     var isFirstLoad: Bool = true
+    var isRestoreActive = false
     
     private var viewTracker: PresentedView = .starterView {
         didSet {
@@ -119,8 +120,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         } else {
             forwardButton.isEnabled = false
         }
-
-        if webView.canGoBack || isStarterViewSlideOut {
+        
+        if viewTracker == .starterView {
+            backButton.isEnabled = false
+        } else if webView.canGoBack || isStarterViewSlideOut {
             backButton.isEnabled = true
         } else if !webViewModel.isHistoryEmpty() {
             backButton.isEnabled = true
@@ -139,6 +142,11 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     fileprivate func navWebBackward() {
+        guard webView.canGoBack else {
+            slideIn()
+            ViewStateUpdate()
+            return
+        }
         webView.goBack()
         ViewStateUpdate()
     }
@@ -149,6 +157,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         if nextBackURL == "Favorites" {
             slideIn()
         } else {
+            print(nextBackURL)
             webView.load(nextBackURL)
         }
         ViewStateUpdate()
@@ -161,7 +170,13 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         }
         
         if (recognizer.direction == .right) {
-            navWebBackward()
+            if !isRestoreActive {
+                navWebBackward()
+                ViewStateUpdate()
+            } else {
+                navHistoryBackward()
+                ViewStateUpdate()
+            }
         }
     }
     
@@ -185,15 +200,13 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
-        guard webView.canGoBack else {
+        if !isRestoreActive {
+            navWebBackward()
+            ViewStateUpdate()
+        } else {
             navHistoryBackward()
             ViewStateUpdate()
-            return
         }
-        
-        navWebBackward()
-        ViewStateUpdate()
-        
         
     }
     
@@ -266,8 +279,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         ViewStateUpdate()
     }
     
-
-
+    
+    
     
 }
 
@@ -306,6 +319,7 @@ extension MainViewController {
         if let lastSite = coder.decodeObject(forKey: "lastSite") as? String {
             slideOut()
             webView.load(lastSite)
+            isRestoreActive = true
             ViewStateUpdate()
         }
     }
