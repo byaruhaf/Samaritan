@@ -74,12 +74,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         zoomLabel.roundCorners()
         zoomLabel.alpha = 0
         zoomLabel.isHidden = true
-        
-        //        webView.load(K.URL.googleURL)
-        //        webView.load("http://192.168.1.1/index.html#login")
-        //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
-        //        webView.load("xxxxxxxxxxxxxxxxxxxx")
-        //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         updateNavButtonsStatus()
     }
     
@@ -216,7 +210,12 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     @IBAction func welcomeButtonTapped(_ sender: Any) {
         slideOut()
-        webView.load(K.URL.kagiURL)
+        //        webView.load(K.URL.googleURL)
+        //        webView.load("http://192.168.1.1/index.html#login")
+        //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
+        //        webView.load("xxxxxxxxxxxxxxxxxxxx")
+                webView.load("http://192.168.1.1:8000/webman/index.cgi")
+//        webView.load(K.URL.kagiURL)
         zoomRestore()
         updateNavButtonsStatus()
     }
