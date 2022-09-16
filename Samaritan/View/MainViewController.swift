@@ -24,7 +24,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     @IBOutlet weak var webViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var starterViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var starterViewTrailingConstraint: NSLayoutConstraint!
-
+    
     var currentZoom:CGFloat = 0.0
     var isStarterViewSlideOut: Bool = false
     let webViewModel = WebViewModel()
@@ -54,7 +54,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         welcomeButton.contentMode = .scaleAspectFit
         welcomeButton.roundCorners()
         welcomeButton.setBorder(color: .lightGray, width: 8.0)
-//        starterView.backgroundColor = .darkGray
+        //        starterView.backgroundColor = .darkGray
         starterView.backgroundColor = .blue
     }
     
@@ -66,9 +66,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.scrollView.delegate = self
         webView.scrollView.maximumZoomScale = 20
         webView.scrollView.minimumZoomScale = 1
-//        webView.backgroundColor = .gray
         webView.backgroundColor = .clear
-        webView.restorationIdentifier = "webviewrestoration"
+        webView.isOpaque = true
+        //        webView.backgroundColor = .red
+        //        webView.restorationIdentifier = "webviewrestoration"
         zoomRestore()
         zoomLabel.roundCorners()
         zoomLabel.alpha = 0
@@ -78,7 +79,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         //        webView.load("http://192.168.1.1/index.html#login")
         //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         //        webView.load("xxxxxxxxxxxxxxxxxxxx")
-//        webView.load("http://192.168.1.1:8000/webman/index.cgi")
+        //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         updateNavButtonsStatus()
     }
     
@@ -112,8 +113,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     fileprivate func updateNavButtonsStatus() {
-//        updateZoomButtonsStatus()
-
+        //        updateZoomButtonsStatus()
+        
         if webView.canGoForward || !isStarterViewSlideOut{
             forwardButton.isEnabled = true
         } else {
@@ -131,7 +132,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         if !isStarterViewSlideOut{
             slideOut()
         }
-            webView.goForward()
+        webView.goForward()
         updateNavButtonsStatus()
     }
     
@@ -176,8 +177,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
         zoomLabel.text = "  \(Int(currentZoom)) X  "
         UserDefaults.set(currentZoom: currentZoom)
-//        zoomLabel.fadeOut(8)
-//        updateZoomButtonsStatus()
+        //        zoomLabel.fadeOut(8)
+        //        updateZoomButtonsStatus()
     }
     @IBAction func zoomInButtonTapped(_ sender: Any) {
         guard currentZoom < 5 else { return }
@@ -186,8 +187,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
         zoomLabel.text = "  \(Int(currentZoom)) X  "
         UserDefaults.set(currentZoom: currentZoom)
-//        zoomLabel.fadeOut(8)
-//        updateZoomButtonsStatus()
+        //        zoomLabel.fadeOut(8)
+        //        updateZoomButtonsStatus()
     }
     
     
@@ -230,7 +231,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
 
 
 extension MainViewController: WKUIDelegate {
-
+    
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         
         let preferences = WKPreferences()
@@ -247,20 +248,25 @@ extension MainViewController: WKUIDelegate {
 
 
 extension MainViewController {
+    override func restoreUserActivityState(_ activity: NSUserActivity) {
+        webView.load(K.URL.googleURL)
+    }
+    
     override func encodeRestorableState(with coder: NSCoder) {
-        super.encodeRestorableState(with: coder)
-        webView.encodeRestorableState(with: coder)
+        //        super.encodeRestorableState(with: coder)
+        //        webView.encodeRestorableState(with: coder)
         let lastSite = webView.url?.absoluteString
         coder.encode(lastSite, forKey: "lastSite")
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
-        super.decodeRestorableState(with: coder)
-        webView.decodeRestorableState(with: coder)
+        //        super.decodeRestorableState(with: coder)
+        //        webView.decodeRestorableState(with: coder)
+        starterView.isHidden = true
         if let lastSite = coder.decodeObject(forKey: "lastSite") as? String {
             webView.load(lastSite)
         }
-        starterView.isHidden = true
-        zoomRestore()
     }
 }
+
+

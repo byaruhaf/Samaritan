@@ -44,15 +44,19 @@ extension AppDelegate {
         return true
     }
     
-    func application(_ application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
-        return coder.decodeObject(forKey: "Restoration ID") as? UIViewController
-        
+    func application(_ application: UIApplication, willEncodeRestorableStateWith coder: NSCoder) {
+        UIApplication.shared.ignoreSnapshotOnNextApplicationLaunch()
     }
-    func application(_ application: UIApplication, didDecodeRestorableStateWith coder: NSCoder) {
-        UIApplication.shared.extendStateRestoration()
-        DispatchQueue.main.async {
-            UIApplication.shared.completeStateRestoration()
-        }
-    }
+    
+//    func application(_ application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [String], coder: NSCoder) -> UIViewController? {
+//        return coder.decodeObject(forKey: "Restoration ID") as? UIViewController
+//
+//    }
+//    func application(_ application: UIApplication, didDecodeRestorableStateWith coder: NSCoder) {
+//        UIApplication.shared.extendStateRestoration()
+//        DispatchQueue.main.async {
+//            UIApplication.shared.completeStateRestoration()
+//        }
+//    }
     
 }
