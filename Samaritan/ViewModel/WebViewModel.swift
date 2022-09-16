@@ -11,6 +11,12 @@ import os.log
 
 final class WebViewModel {
     let realm = try! Realm() // Openrealm
+    var pages: Results<WebHistoryRecord>
+    
+    init() {
+        // Get all pages in the realm
+        self.pages = realm.objects(WebHistoryRecord.self)
+    }
     
     func savePageVisit(url: String?, pageTitle: String?) {
         let record = WebHistoryRecord()
@@ -38,8 +44,6 @@ final class WebViewModel {
     
     @discardableResult
     func removeLastPageAdded() -> WebHistoryRecord? {
-        // Get all pages in the realm
-        let pages = realm.objects(WebHistoryRecord.self)
         let LastPageAdded = pages.last
         
         do {

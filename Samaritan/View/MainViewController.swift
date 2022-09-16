@@ -29,6 +29,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     var isStarterViewSlideOut: Bool = false
     let webViewModel = WebViewModel()
     
+    var isStarterView: Bool = true
+    var isWebView: Bool = false
+    var isFirstLoad: Bool = true
+    
     private var viewTracker: PresentedView = .starterView {
         didSet {
             ViewStateUpdate()
@@ -39,6 +43,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         super.viewDidLoad()
         viewSetUp()
         gestureSetup()
+        print(webViewModel.pages.count)
     }
     
     fileprivate func ViewStateUpdate() {
@@ -46,11 +51,13 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         case .starterView:
             zoomInButton.isEnabled = false
             zoomOutButton.isEnabled = false
+            isStarterView = true
             updateNavButtonsStatus()
         case .webview:
             zoomInButton.isEnabled = true
             zoomOutButton.isEnabled = true
             updateNavButtonsStatus()
+            isWebView = true
         }
     }
     
@@ -73,7 +80,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         welcomeButton.contentMode = .scaleAspectFit
         welcomeButton.roundCorners()
         welcomeButton.setBorder(color: .lightGray, width: 8.0)
-        //        starterView.backgroundColor = .darkGray
+        starterView.backgroundColor = .darkGray
         starterView.backgroundColor = .blue
     }
     
@@ -106,10 +113,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         zoomLabel.text = "  \(Int(currentZoom)) X  "
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
     }
-
+    
     
     fileprivate func updateNavButtonsStatus() {
-
+        
         if webView.canGoForward || !isStarterViewSlideOut{
             forwardButton.isEnabled = true
         } else {
@@ -159,9 +166,18 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         ViewStateUpdate()
     }
     
+    func saveHistory() {
+        loadSites(webView.backForwardList)
+        listData.forEach {
+            print($0.url.absoluteString)
+        }
+    }
+    
     @IBAction func backButtonTapped(_ sender: Any) {
         navBackward()
         ViewStateUpdate()
+        
+        
     }
     
     
@@ -213,18 +229,19 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             self.viewTracker = .starterView
             self.ViewStateUpdate()
         })
+        
     }
     
     @IBAction func welcomeButtonTapped(_ sender: Any) {
         slideOut()
-        //        webView.load(K.URL.googleURL)
-        //        webView.load("http://192.168.1.1/index.html#login")
-        //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
-        //        webView.load("xxxxxxxxxxxxxxxxxxxx")
-                webView.load("http://192.168.1.1:8000/webman/index.cgi")
-//        webView.load(K.URL.kagiURL)
+        if isFirstLoad {
+            webView.load(K.URL.kagiURL)
+            webViewModel.savePageVisit(url: "Favorites", pageTitle: "Favorites")
+        }
+        
         zoomRestore()
         ViewStateUpdate()
+        
     }
     
     
@@ -232,6 +249,22 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         ViewStateUpdate()
         webViewModel.savePageVisit(url: webView.url?.absoluteString, pageTitle: webView.title)
     }
+    
+    var currentItem: WKBackForwardListItem?
+    var listData = [WKBackForwardListItem]()
+    
+    func homeAndNormalPagesOnly(_ bfList: WKBackForwardList) {
+        let items = bfList.forwardList.reversed() + [bfList.currentItem].compactMap({$0}) + bfList.backList.reversed()
+        listData = items
+    }
+    
+    func loadSites(_ bfList: WKBackForwardList) {
+        currentItem = bfList.currentItem
+        
+        homeAndNormalPagesOnly(bfList)
+    }
+    
+    
     
 }
 
@@ -254,25 +287,22 @@ extension MainViewController: WKUIDelegate {
 
 
 extension MainViewController {
-    override func restoreUserActivityState(_ activity: NSUserActivity) {
-        webView.load(K.URL.googleURL)
-    }
-    
     override func encodeRestorableState(with coder: NSCoder) {
-        //        super.encodeRestorableState(with: coder)
-        //        webView.encodeRestorableState(with: coder)
-        let lastSite = webView.url?.absoluteString
+        super.encodeRestorableState(with: coder)
+        webView.encodeRestorableState(with: coder)
+        let lastURL = webView.backForwardList.currentItem?.url
+        let lastSite = lastURL?.absoluteString
         coder.encode(lastSite, forKey: "lastSite")
+        saveHistory()
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
-        //        super.decodeRestorableState(with: coder)
-        //        webView.decodeRestorableState(with: coder)
-        slideOut()
+        super.decodeRestorableState(with: coder)
+        webView.decodeRestorableState(with: coder)
+        
         if let lastSite = coder.decodeObject(forKey: "lastSite") as? String {
+            slideOut()
             webView.load(lastSite)
         }
     }
 }
-
-
