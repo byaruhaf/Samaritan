@@ -75,18 +75,19 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         //        webView.load("http://192.168.1.1/index.html#login")
         //        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         //        webView.load("xxxxxxxxxxxxxxxxxxxx")
-        webView.load(K.URL.kagiURL)
+//        webView.load(K.URL.kagiURL)
+        webView.load("http://192.168.1.1:8000/webman/index.cgi")
         updateNavButtonsStatus()
     }
     
     fileprivate func zoomRestore() {
         guard let savedZoom = UserDefaults.getZoomValue() else {
             currentZoom = webView.scrollView.zoomScale
-            zoomLabel.text = "  \(currentZoom) X  "
+            zoomLabel.text = "  \(Int(currentZoom)) X  "
             return
         }
         currentZoom = savedZoom
-        zoomLabel.text = "  \(currentZoom) X  "
+        zoomLabel.text = "  \(Int(currentZoom)) X  "
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
     }
     
@@ -167,21 +168,21 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     
     @IBAction func zoomOutButtonTapped(_ sender: Any) {
-        guard currentZoom > 0 else { return }
+        guard currentZoom > 1 else { return }
         zoomLabel.fadeIn()
         currentZoom -= 1
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-        zoomLabel.text = "  \(currentZoom) X  "
+        zoomLabel.text = "  \(Int(currentZoom)) X  "
         UserDefaults.set(currentZoom: currentZoom)
 //        zoomLabel.fadeOut(8)
 //        updateZoomButtonsStatus()
     }
     @IBAction func zoomInButtonTapped(_ sender: Any) {
-        guard currentZoom < 6 else { return }
+        guard currentZoom < 5 else { return }
         zoomLabel.fadeIn()
         currentZoom += 1
         self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-        zoomLabel.text = "  \(currentZoom) X  "
+        zoomLabel.text = "  \(Int(currentZoom)) X  "
         UserDefaults.set(currentZoom: currentZoom)
 //        zoomLabel.fadeOut(8)
 //        updateZoomButtonsStatus()
