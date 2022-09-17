@@ -16,16 +16,14 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var zoomOutButton: UIBarButtonItem!
     @IBOutlet weak var zoomInButton: UIBarButtonItem!
+    @IBOutlet weak var ZoomIndicator: UIBarButtonItem!
     @IBOutlet weak var welcomeButton: UIButton!
     @IBOutlet weak var starterView: UIView!
-    @IBOutlet weak var zoomLabel: UILabel!
-    
     @IBOutlet weak var webViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var webViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var starterViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var starterViewTrailingConstraint: NSLayoutConstraint!
     
-    var currentZoom:CGFloat = 0.0
     var isStarterViewSlideOut: Bool = false
     let webViewModel = WebViewModel()
     
@@ -94,23 +92,15 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.scrollView.minimumZoomScale = 1
         webView.backgroundColor = .clear
         webView.isOpaque = true
-        zoomLabel.roundCorners()
-        zoomLabel.alpha = 0
-        zoomLabel.isHidden = true
         ViewStateUpdate()
     }
     
-    fileprivate func zoomRestore() {
-        guard let savedZoom = UserDefaults.getZoomValue() else {
-            currentZoom = webView.scrollView.zoomScale
-            zoomLabel.text = "  \(Int(currentZoom)) X  "
-            return
-        }
-        currentZoom = savedZoom
-        zoomLabel.text = "  \(Int(currentZoom)) X  "
-        self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-    }
-    
+//    fileprivate func zoomRestore() {
+//        guard let savedZoom = UserDefaults.getZoomValue() else { return }
+//        print(savedZoom)
+//        pageZoom = savedZoom
+//    }
+//
     
     fileprivate func updateNavButtonsStatus() {
         
@@ -209,34 +199,62 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         
     }
     
+    fileprivate(set) var pageZoom: CGFloat = 1.0 {
+        didSet {
+            webView?.setValue(pageZoom, forKey: "viewScale")
+            zoomInButton.isEnabled = pageZoom != 3.0 && viewTracker == .webview
+            zoomOutButton.isEnabled = pageZoom != 0.5 && viewTracker == .webview
+            ZoomIndicator.title = "  \(Int(pageZoom * 100)) %  "
+            UserDefaults.set(currentZoom: pageZoom)
+        }
+    }
+    @objc func zoomIn() {
+        switch pageZoom {
+        case 0.75:
+            pageZoom = 0.85
+        case 0.85:
+            pageZoom = 1.0
+        case 1.0:
+            pageZoom = 1.15
+        case 1.15:
+            pageZoom = 1.25
+        case 3.0:
+            return
+        default:
+            pageZoom += 0.25
+        }
+    }
+
+    @objc func zoomOut() {
+        switch pageZoom {
+        case 0.5:
+            return
+        case 0.85:
+            pageZoom = 0.75
+        case 1.0:
+            pageZoom = 0.85
+        case 1.15:
+            pageZoom = 1.0
+        case 1.25:
+            pageZoom = 1.15
+        default:
+            pageZoom -= 0.25
+        }
+    }
+
+    func resetZoom() {
+        pageZoom = 1.0
+    }
     
     @IBAction func zoomOutButtonTapped(_ sender: Any) {
-        guard currentZoom > 1 else {
-            zoomOutButton.isEnabled = false
-            return
-        }
-        ViewStateUpdate()
-        zoomLabel.fadeIn()
-        currentZoom -= 1
-        self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-        zoomLabel.text = "  \(Int(currentZoom)) X  "
-        UserDefaults.set(currentZoom: currentZoom)
-        //        zoomLabel.fadeOut(8)
+        zoomOut()
     }
     @IBAction func zoomInButtonTapped(_ sender: Any) {
-        guard currentZoom < 5 else {
-            zoomInButton.isEnabled = false
-            return
-        }
-        ViewStateUpdate()
-        zoomLabel.fadeIn()
-        currentZoom += 1
-        self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-        zoomLabel.text = "  \(Int(currentZoom)) X  "
-        UserDefaults.set(currentZoom: currentZoom)
-        //        zoomLabel.fadeOut(8)
+        zoomIn()
     }
-    
+    @IBAction func ZoomIndicatorTapped(_ sender: Any) {
+        resetZoom()
+    }
     
     fileprivate func slideOut() {
         UIView.animate(withDuration: 0.75, delay: 0.0, options: .curveEaseOut, animations: {
@@ -272,7 +290,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        zoomRestore()
+//        zoomRestore()
         ViewStateUpdate()
     }
     

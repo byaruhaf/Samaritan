@@ -12,12 +12,15 @@ import UIKit
 extension UserDefaults {
     
     private enum Keys {
-        static let zoom = "currentZoom"
+        static let zoom = "pageZoom"
     }
     
     // Retriving of saved Zoom
-    static func getZoomValue() -> CGFloat? {
-        return UserDefaults.standard.double(forKey: Keys.zoom)
+    static func getZoomValue() -> CGFloat {
+//        if let val = UserDefaults.standard.double(forKey: Keys.zoom) {
+//            return CGFloat(val)
+//        }
+        return 1.0
     }
     
     // Saving of Zoom

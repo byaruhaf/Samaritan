@@ -32,6 +32,13 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="lxe-NU-uRv"/>
+                                    <barButtonItem title="100%" style="done" id="73L-FS-FR6" userLabel="ZoomIndicator">
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <connections>
+                                            <action selector="ZoomIndicatorTapped:" destination="BYZ-38-t0r" id="phr-0B-eth"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="OMq-en-9cv"/>
                                     <barButtonItem image="minus.circle.fill" catalog="system" id="sTH-MR-s1g" userLabel="ZoomOut">
                                         <connections>
                                             <action selector="zoomOutButtonTapped:" destination="BYZ-38-t0r" id="T6r-VO-6Sa"/>
@@ -85,7 +92,7 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zJl-sm-Tde" secondAttribute="trailing" constant="20" symbolic="YES" id="xot-LA-b6k"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  2X  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TM9-Tr-kag">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  2X  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TM9-Tr-kag">
                                 <rect key="frame" x="364.66666666666669" y="811" width="49.333333333333314" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -116,6 +123,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ZoomIndicator" destination="73L-FS-FR6" id="7Yu-nF-4xd"/>
                         <outlet property="backButton" destination="bNV-LD-ZNW" id="0Cz-yK-fFx"/>
                         <outlet property="forwardButton" destination="ewJ-qD-Mgq" id="64R-HG-Gbe"/>
                         <outlet property="navToolBar" destination="wJC-IB-HBz" id="36g-ZI-OC1"/>
@@ -127,7 +135,6 @@
                         <outlet property="webViewTrailingConstraint" destination="Xzx-Mx-5Qz" id="G8h-9O-CJb"/>
                         <outlet property="welcomeButton" destination="X7o-sI-Lwb" id="cXf-eF-TW3"/>
                         <outlet property="zoomInButton" destination="ErS-Qg-Y78" id="TLR-lG-zTn"/>
-                        <outlet property="zoomLabel" destination="TM9-Tr-kag" id="1lF-Va-xh1"/>
                         <outlet property="zoomOutButton" destination="sTH-MR-s1g" id="laS-1P-VGC"/>
                     </connections>
                 </viewController>
@@ -142,6 +149,9 @@
         <image name="kagi" width="121" height="121"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="123"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
