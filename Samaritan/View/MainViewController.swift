@@ -176,14 +176,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         viewStateUpdate()
     }
 
-    var currentItem: WKBackForwardListItem?
-    var listData = [WKBackForwardListItem]()
-
     func saveHistory() {
         let bfList = webView.backForwardList
         let items = bfList.backList + [bfList.currentItem].compactMap({ $0 })
-        listData = items
-        listData.forEach {
+        items.forEach {
             webViewModel.savePageVisit(url: $0.url.absoluteString)
         }
     }

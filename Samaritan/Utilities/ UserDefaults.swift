@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-// Extending UserDefaults to save zoom
+/// Struct for saving zoom value using UserDefaults
 @propertyWrapper
 struct UserDefault<Value> {
     let key: String

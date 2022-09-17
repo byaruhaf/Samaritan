@@ -9,6 +9,7 @@ import Foundation
 import RealmSwift
 import os.log
 
+/// App's View Model for interacting with Realm DB
 final class WebViewModel {
     // swiftlint:disable force_try
     let realm = try! Realm() // Openrealm
