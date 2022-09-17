@@ -9,23 +9,28 @@ import Foundation
 import UIKit
 
 // Extending UserDefaults to save zoom
+@propertyWrapper
+struct UserDefault<Value> {
+    let key: String
+    let defaultValue: Value
+    var container: UserDefaults = .standard
+
+    var wrappedValue: Value {
+        get {
+            return container.object(forKey: key) as? Value ?? defaultValue
+        }
+        set {
+            container.set(newValue, forKey: key)
+        }
+    }
+}
+
 extension UserDefaults {
-    
     private enum Keys {
         static let zoom = "pageZoom"
     }
     
-    // Retriving of saved Zoom
-    static func getZoomValue() -> CGFloat {
-//        if let val = UserDefaults.standard.double(forKey: Keys.zoom) {
-//            return CGFloat(val)
-//        }
-        return 1.0
-    }
-    
-    // Saving of Zoom
-    static func set(currentZoom: CGFloat) {
-        UserDefaults.standard.set(currentZoom, forKey: Keys.zoom)
-    }
-    
+
+    @UserDefault(key: Keys.zoom, defaultValue: 1.0)
+    static var pageZoom: CGFloat
 }

@@ -32,16 +32,16 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="lxe-NU-uRv"/>
-                                    <barButtonItem title="100%" style="done" id="73L-FS-FR6" userLabel="ZoomIndicator">
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <connections>
-                                            <action selector="ZoomIndicatorTapped:" destination="BYZ-38-t0r" id="phr-0B-eth"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="OMq-en-9cv"/>
                                     <barButtonItem image="minus.circle.fill" catalog="system" id="sTH-MR-s1g" userLabel="ZoomOut">
                                         <connections>
                                             <action selector="zoomOutButtonTapped:" destination="BYZ-38-t0r" id="T6r-VO-6Sa"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="100%" style="done" id="73L-FS-FR6" userLabel="ZoomIndicator">
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <connections>
+                                            <action selector="ZoomIndicatorTapped:" destination="BYZ-38-t0r" id="phr-0B-eth"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Item" image="plus.circle.fill" catalog="system" id="ErS-Qg-Y78" userLabel="ZoomIn">
@@ -63,7 +63,7 @@
                                 <rect key="frame" x="0.0" y="59" width="430" height="790"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7o-sI-Lwb" userLabel="W Button">
-                                        <rect key="frame" x="110" y="334" width="210" height="122"/>
+                                        <rect key="frame" x="105" y="334" width="220" height="122"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="122" id="5ox-8x-hco"/>
@@ -71,7 +71,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Search   " image="kagi"/>
+                                        <state key="normal" title="  Search   " image="kagi"/>
                                         <connections>
                                             <action selector="welcomeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EOc-B7-80s"/>
                                         </connections>
@@ -92,30 +92,17 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zJl-sm-Tde" secondAttribute="trailing" constant="20" symbolic="YES" id="xot-LA-b6k"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  2X  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TM9-Tr-kag">
-                                <rect key="frame" x="364.66666666666669" y="811" width="49.333333333333314" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="syk-OK-P1o"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vKm-PA-fvY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="47W-cL-IAn"/>
                             <constraint firstItem="N3M-gJ-ZBn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ABV-lY-zLz"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TM9-Tr-kag" secondAttribute="trailing" constant="16" id="Bzb-9r-mT6"/>
                             <constraint firstItem="wJC-IB-HBz" firstAttribute="top" secondItem="N3M-gJ-ZBn" secondAttribute="bottom" id="FCz-s2-j0d"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="N3M-gJ-ZBn" secondAttribute="trailing" id="GNI-0O-8w0"/>
                             <constraint firstItem="wJC-IB-HBz" firstAttribute="top" secondItem="vKm-PA-fvY" secondAttribute="bottom" id="PlO-gi-qKg"/>
                             <constraint firstAttribute="trailing" secondItem="wJC-IB-HBz" secondAttribute="trailing" id="RSe-dp-69m"/>
-                            <constraint firstItem="wJC-IB-HBz" firstAttribute="top" secondItem="TM9-Tr-kag" secondAttribute="bottom" constant="8" id="Vcl-io-6Nx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vKm-PA-fvY" secondAttribute="trailing" id="Xzx-Mx-5Qz"/>
-                            <constraint firstItem="TM9-Tr-kag" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="250" id="Yxy-8g-14W"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wJC-IB-HBz" secondAttribute="bottom" id="ivF-rC-mzW"/>
                             <constraint firstItem="vKm-PA-fvY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sBE-Qw-EwE"/>
                             <constraint firstItem="N3M-gJ-ZBn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xOT-NZ-avi"/>
