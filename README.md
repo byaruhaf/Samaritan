@@ -36,42 +36,40 @@ using the same gestures.
 | :-------------------------: | :-------------------------------- |
 | ![Navigation](Demo/Nav.gif) | ![Navigation](Demo/ButtonNav.gif) |
 
-### Restore WKWebView navigation history
-
 ### Persistence Implementation
+
+The Apps Persistance is implemented using both UserDefaults and Realm
 
 #### UserDefaults
 
+UserDefaults is used to store the Zoom value to be restored for both App Restarts and App Relaunches.
+UserDefaults was selected, because zoom levels tend to be device specific.
+A user may use Zoom = 150 in an iphone and Zoom = 85% on an ipad.
+
 #### Realm
 
+Realm is used to store the webview navigation history to be restored for App Relaunches.
+History is generated from the `webView.backForwardList` during the `encodeRestorableState`
+The state restoration framework intentionally discards any state information when the user manually kills an app, or when the state restoration process fails.
+These checks exist so that your app doesn’t get stuck in an infinite loop of bad states and restoration crashes.
+
+### Restore WKWebView navigation history
+
+![Restore](Demo/Restore.gif)
+
 ### Zoom Implementation
+
+The Apps Zoom is implemented using `webView?.setValue(pageZoom, forKey: "viewScale")` and and is restored in [webView(\_:didFinish:)](https://developer.apple.com/documentation/webkit/wknavigationdelegate/1455629-webview). Below is a video comparing Safari Zoom & Samaritan Zoom
 
 [![Safari Zoom vs Samaritan Zoom](Demo/embed.png)](https://youtu.be/nOsr5MuHJPg "Safari Zoom vs Samaritan Zoom")
 
 #### Alternatives Considered
 
-#### pageZoom
+Here are few alternative methods of zoom i tried out.
 
-using Instance Property pageZoom. The scale factor by which the web view scales content relative to its bounds.
-issue: only available for iOS 14.0+
-`webView.pageZoom`
-
-#### webkitTextSizeAdjust
-
-issue: similar to safari but not Right.
-
-```js
-let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(zoomlevel)%'"
-webView.evaluateJavaScript(js, completionHandler: nil)
-```
-
-#### setZoomScale for the scrollView
-
-issue: similar to safari but not Right.
-
-```swift
-self.webView.scrollView.setZoomScale(currentZoom, animated: true)
-```
+- pageZoom: using Instance Property [pageZoom](https://developer.apple.com/documentation/webkit/wkwebview/3516411-pagezoom). Main issue this only available for iOS 14.0+
+- webkitTextSizeAdjust & evaluateJavaScript: Zoom is possible but not similar to safari
+- setZoomScale for the scrollView: Zoom is possible but not similar to safari
 
 ### Known issues
 
