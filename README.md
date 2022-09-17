@@ -10,7 +10,7 @@
 
 Samaritan Browser is a partial implementation of Safari functionality, which includes page navigation and page zoom features.
 This branch was Compiled with Xcode 14.0.0, and Swift 5.7 and supports iOS 13 and above.
-Project Documentation generate using **Apples DocC** can be accessed using this link (Documentation)
+Project Documentation generate using **Apples DocC** can be accessed using this link [Documentation](https://byaruhaf.github.io/Samaritan/documentation/samaritan/)
 
 ## Implementation Details
 
