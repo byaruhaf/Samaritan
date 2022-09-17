@@ -22,27 +22,27 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     @IBOutlet var webViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet var starterViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet var starterViewTrailingConstraint: NSLayoutConstraint!
-
+    
     var isStarterViewSlideOut = false
     let webViewModel = WebViewModel()
-
+    
     var isStarterView = true
     var isWebView = false
     var isFirstLoad = true
     var isRestoreActive = false
-
+    
     private var viewTracker: PresentedView = .starterView {
         didSet {
             viewStateUpdate()
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewSetUp()
         gestureSetup()
     }
-
+    
     fileprivate func viewStateUpdate() {
         switch viewTracker {
         case .starterView:
@@ -59,7 +59,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             isWebView = true
         }
     }
-
+    
     fileprivate func gestureSetup() {
         webView.allowsBackForwardNavigationGestures = true
         let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
@@ -71,7 +71,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         self.view.addGestureRecognizer(swipeLeftRecognizer)
         self.view.addGestureRecognizer(swipeRightRecognizer)
     }
-
+    
     fileprivate func welcomeButtonSetUp() {
         welcomeButton.imageView?.image = UIImage(named: "kagi")
         welcomeButton.titleLabel?.text = ""
@@ -81,7 +81,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         welcomeButton.setBorder(color: .lightGray, width: 8.0)
         starterView.backgroundColor = .darkGray
     }
-
+    
     fileprivate func viewSetUp() {
         // Do any additional setup after loading the view.
         welcomeButtonSetUp()
@@ -94,11 +94,11 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.isOpaque = true
         viewStateUpdate()
     }
-
+    
     fileprivate func zoomRestore() {
         pageZoom = UserDefaults.pageZoom
     }
-
+    
     fileprivate func updateNavButtonsStatus() {
         if viewTracker == .starterView && !isFirstLoad {
             forwardButton.isEnabled = true
@@ -107,7 +107,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         } else {
             forwardButton.isEnabled = false
         }
-
+        
         if viewTracker == .starterView {
             backButton.isEnabled = false
         } else if webView.canGoBack || isStarterViewSlideOut {
@@ -118,7 +118,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             backButton.isEnabled = false
         }
     }
-
+    
     fileprivate func navForward() {
         if viewTracker == .starterView {
             slideOut()
@@ -131,7 +131,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.goForward()
         viewStateUpdate()
     }
-
+    
     fileprivate func navWebBackward() {
         guard webView.canGoBack else {
             slideIn()
@@ -170,12 +170,12 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             }
         }
     }
-        
+    
     @IBAction private func forwardButtonTapped(_ sender: Any) {
         navForward()
         viewStateUpdate()
     }
-
+    
     func saveHistory() {
         let bfList = webView.backForwardList
         let items = bfList.backList + [bfList.currentItem].compactMap({ $0 })
@@ -183,7 +183,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             webViewModel.savePageVisit(url: $0.url.absoluteString)
         }
     }
-
+    
     @IBAction private func backButtonTapped(_ sender: Any) {
         if !isRestoreActive {
             navWebBackward()
@@ -191,9 +191,9 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         } else {
             navHistoryBackward()
             viewStateUpdate()
-        }    
+        }
     }
-
+    
     fileprivate(set) var pageZoom: CGFloat = 1.0 {
         didSet {
             webView?.setValue(pageZoom, forKey: "viewScale")
@@ -221,7 +221,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             pageZoom += 0.25
         }
     }
-
+    
     func zoomOut() {
         switch pageZoom {
         case 0.5:
@@ -238,11 +238,11 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             pageZoom -= 0.25
         }
     }
-
+    
     func resetZoom() {
         pageZoom = 1.0
     }
-
+    
     @IBAction private func zoomOutButtonTapped(_ sender: Any) {
         zoomOut()
     }
@@ -252,7 +252,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     @IBAction private func zoomIndicatorTapped(_ sender: Any) {
         resetZoom()
     }
-
+    
     fileprivate func slideOut() {
         UIView.animate(withDuration: 1.8,
                        delay: 0.01,
@@ -267,7 +267,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         })
         viewStateUpdate()
     }
-
+    
     fileprivate func slideIn() {
         UIView.animate(withDuration: 1.8,
                        delay: 0.01,
@@ -282,7 +282,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         })
         viewStateUpdate()
     }
-
+    
     @IBAction private func welcomeButtonTapped(_ sender: Any) {
         slideOut()
         if isFirstLoad {
@@ -292,24 +292,10 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         isFirstLoad = false
         viewStateUpdate()
     }
-
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         zoomRestore()
         viewStateUpdate()
-    }
-}
-
-extension MainViewController: WKUIDelegate {
-
-func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-    
-        let preferences = WKPreferences()
-        preferences.javaScriptEnabled = true
-        preferences.javaScriptCanOpenWindowsAutomatically = true
-        let configuration = WKWebViewConfiguration()
-        configuration.preferences = preferences
-    
-        return WKWebView(frame: webView.frame, configuration: configuration)
     }
 }
 
@@ -322,11 +308,11 @@ extension MainViewController {
         coder.encode(lastSite, forKey: "lastSite")
         saveHistory()
     }
-
+    
     override func decodeRestorableState(with coder: NSCoder) {
         super.decodeRestorableState(with: coder)
         webView.decodeRestorableState(with: coder)
-    
+        
         if let lastSite = coder.decodeObject(forKey: "lastSite") as? String {
             slideOut()
             webView.load(lastSite)
