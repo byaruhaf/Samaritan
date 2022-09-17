@@ -94,7 +94,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         webView.scrollView.minimumZoomScale = 1
         webView.backgroundColor = .clear
         webView.isOpaque = true
-        zoomRestore()
         zoomLabel.roundCorners()
         zoomLabel.alpha = 0
         zoomLabel.isHidden = true
@@ -268,14 +267,12 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             webView.load(K.URL.kagiURL)
             webViewModel.savePageVisit(url: "Favorites")
         }
-        
-        zoomRestore()
         ViewStateUpdate()
-        
     }
     
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        zoomRestore()
         ViewStateUpdate()
     }
     
