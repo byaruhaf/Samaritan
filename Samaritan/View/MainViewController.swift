@@ -42,7 +42,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         super.viewDidLoad()
         viewSetUp()
         gestureSetup()
-        print(webViewModel.pages.count)
     }
     
     fileprivate func ViewStateUpdate() {
@@ -103,8 +102,9 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     
     fileprivate func updateNavButtonsStatus() {
-        
-        if webView.canGoForward || !isStarterViewSlideOut{
+        if viewTracker == .starterView && !isFirstLoad {
+            forwardButton.isEnabled = true
+        } else if webView.canGoForward {
             forwardButton.isEnabled = true
         } else {
             forwardButton.isEnabled = false
@@ -122,13 +122,24 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     fileprivate func navForward() {
-        guard webView.canGoForward else {return}
-        if !isStarterViewSlideOut{
+        if viewTracker == .starterView  {
             slideOut()
+            return
+        }
+        guard webView.canGoForward else {
+            ViewStateUpdate()
+            return
         }
         webView.goForward()
         ViewStateUpdate()
     }
+    
+    fileprivate func navWebForward() {
+    }
+    
+    fileprivate func navStarterForward() {
+    }
+    
     
     fileprivate func navWebBackward() {
         guard webView.canGoBack else {
@@ -146,7 +157,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         if nextBackURL == "Favorites" {
             slideIn()
         } else {
-            print(nextBackURL)
             webView.load(nextBackURL)
         }
         ViewStateUpdate()
@@ -171,6 +181,13 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     
     
     @IBAction func forwardButtonTapped(_ sender: Any) {
+//        if !isRestoreActive {
+//            navWebForward()
+//            ViewStateUpdate()
+//        } else {
+//            navStarterForward()
+//            ViewStateUpdate()
+//        }
         navForward()
         ViewStateUpdate()
     }
@@ -183,7 +200,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         let items =  bfList.backList + [bfList.currentItem].compactMap({$0})
         listData = items
         listData.forEach {
-            print($0.url.absoluteString)
             webViewModel.savePageVisit(url: $0.url.absoluteString)
         }
     }
@@ -266,6 +282,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             self.viewTracker = .webview
             self.ViewStateUpdate()
         })
+        ViewStateUpdate()
     }
     
     fileprivate func slideIn() {
@@ -277,7 +294,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             self.viewTracker = .starterView
             self.ViewStateUpdate()
         })
-        
+        ViewStateUpdate()
     }
     
     @IBAction func welcomeButtonTapped(_ sender: Any) {
@@ -286,6 +303,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             webView.load(K.URL.kagiURL)
             webViewModel.savePageVisit(url: "Favorites")
         }
+        isFirstLoad = false
         ViewStateUpdate()
     }
     
