@@ -50,11 +50,13 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         case .starterView:
             zoomInButton.isEnabled = false
             zoomOutButton.isEnabled = false
+            ZoomIndicator.isEnabled = false
             isStarterView = true
             updateNavButtonsStatus()
         case .webview:
             zoomInButton.isEnabled = true
             zoomOutButton.isEnabled = true
+            ZoomIndicator.isEnabled = true
             updateNavButtonsStatus()
             isWebView = true
         }
@@ -98,7 +100,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     fileprivate func zoomRestore() {
         pageZoom = UserDefaults.pageZoom
     }
-
+    
     
     fileprivate func updateNavButtonsStatus() {
         
@@ -202,6 +204,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             webView?.setValue(pageZoom, forKey: "viewScale")
             zoomInButton.isEnabled = pageZoom != 3.0 && viewTracker == .webview
             zoomOutButton.isEnabled = pageZoom != 0.5 && viewTracker == .webview
+            ZoomIndicator.isEnabled = viewTracker == .webview
             ZoomIndicator.title = "  \(Int(pageZoom * 100)) %  "
             UserDefaults.pageZoom = pageZoom
         }
@@ -222,7 +225,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             pageZoom += 0.25
         }
     }
-
+    
     @objc func zoomOut() {
         switch pageZoom {
         case 0.5:
@@ -239,7 +242,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             pageZoom -= 0.25
         }
     }
-
+    
     func resetZoom() {
         pageZoom = 1.0
     }
