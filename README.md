@@ -28,8 +28,7 @@ The state of back/forward buttons adapts accordingly to reflect an ability for t
 
 The swipe gestures are a combination of both built-in WKWebView swipe gestures and gestures added to the starter view.
 When the webview is not hidden & [webView.canGoBack](https://developer.apple.com/documentation/webkit/wkwebview/1414966-cangoback) is true then WKWebView swipe gestures are used.
-If the starter view is active or [webView.canGoBack](https://developer.apple.com/documentation/webkit/wkwebview/1414966-cangoback) is false then swipe Gestures added to the starter view are used.  
-Both the webview & startview gestures use slide-in transitions so users can seamlessly swipe between both views and they will act like one view.
+If the starter view is active or [webView.canGoBack](https://developer.apple.com/documentation/webkit/wkwebview/1414966-cangoback) is false then swipe Gestures added to the starter view are used. Both the webview & startview gestures use slide-in transitions so users can seamlessly swipe between both views and they will act like one view.
 using the same gestures.
 
 |     Gestures Navigation     | Buttons Navigation                |
