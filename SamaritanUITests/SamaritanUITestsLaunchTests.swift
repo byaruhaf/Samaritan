@@ -14,6 +14,7 @@ final class SamaritanUITestsLaunchTests: XCTestCase {
     }
 
     override func setUpWithError() throws {
+        try super.setUpWithError()
         continueAfterFailure = false
     }
 

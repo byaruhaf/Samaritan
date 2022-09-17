@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum PresentedView {
     case starterView
     case webview

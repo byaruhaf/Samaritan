@@ -41,7 +41,7 @@
                                     <barButtonItem title="100%" style="done" id="73L-FS-FR6" userLabel="ZoomIndicator">
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <connections>
-                                            <action selector="ZoomIndicatorTapped:" destination="BYZ-38-t0r" id="phr-0B-eth"/>
+                                            <action selector="zoomIndicatorTapped:" destination="BYZ-38-t0r" id="Wbk-SR-D0g"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Item" image="plus.circle.fill" catalog="system" id="ErS-Qg-Y78" userLabel="ZoomIn">
@@ -110,7 +110,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="ZoomIndicator" destination="73L-FS-FR6" id="7Yu-nF-4xd"/>
                         <outlet property="backButton" destination="bNV-LD-ZNW" id="0Cz-yK-fFx"/>
                         <outlet property="forwardButton" destination="ewJ-qD-Mgq" id="64R-HG-Gbe"/>
                         <outlet property="navToolBar" destination="wJC-IB-HBz" id="36g-ZI-OC1"/>
@@ -122,6 +121,7 @@
                         <outlet property="webViewTrailingConstraint" destination="Xzx-Mx-5Qz" id="G8h-9O-CJb"/>
                         <outlet property="welcomeButton" destination="X7o-sI-Lwb" id="cXf-eF-TW3"/>
                         <outlet property="zoomInButton" destination="ErS-Qg-Y78" id="TLR-lG-zTn"/>
+                        <outlet property="zoomIndicator" destination="73L-FS-FR6" id="qnO-zS-E9R"/>
                         <outlet property="zoomOutButton" destination="sTH-MR-s1g" id="laS-1P-VGC"/>
                     </connections>
                 </viewController>

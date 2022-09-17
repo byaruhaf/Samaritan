@@ -1,5 +1,3 @@
-
-
 import UIKit
 
 extension UIButton {
@@ -34,7 +32,6 @@ extension UIButton {
         layer.add(flash, forKey: nil)
     }
     
-    
     func shake() {
         
         let shake = CABasicAnimation(keyPath: "position")
@@ -63,13 +60,11 @@ extension UIButton {
         layer.masksToBounds = true
     }
     
-    
     func setBorder(color: UIColor, width: CGFloat) {
         layer.borderColor = color.cgColor
         layer.borderWidth = width
     }
 }
-
 
 extension UILabel {
     func roundCorners() {

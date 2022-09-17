@@ -17,7 +17,7 @@ struct UserDefault<Value> {
 
     var wrappedValue: Value {
         get {
-            return container.object(forKey: key) as? Value ?? defaultValue
+             container.object(forKey: key) as? Value ?? defaultValue
         }
         set {
             container.set(newValue, forKey: key)
@@ -30,7 +30,6 @@ extension UserDefaults {
         static let zoom = "pageZoom"
     }
     
-
     @UserDefault(key: Keys.zoom, defaultValue: 1.0)
     static var pageZoom: CGFloat
 }

@@ -10,19 +10,20 @@ import RealmSwift
 import os.log
 
 final class WebViewModel {
+    // swiftlint:disable force_try
     let realm = try! Realm() // Openrealm
     var pages: Results<WebHistoryRecord>
-    
+
     init() {
         // Get all pages in the realm
         self.pages = realm.objects(WebHistoryRecord.self)
     }
-    
+
     func savePageVisit(url: String?) {
         let record = WebHistoryRecord()
         record.pageURL = url ?? ""
         record.visitDate = Date()
-        
+    
         do {
             try realm.write {
                 realm.add(record)
@@ -32,6 +33,7 @@ final class WebViewModel {
             } else {
                 os_log("record successfully saved.", log: OSLog.default, type: .debug)
             }
+            // swiftlint:disable untyped_error_in_catch
         } catch let error {
             if #available(iOS 14.0, *) {
                 Logger.savingRecord.error("Failed to save :Error: \(error.localizedDescription)")
@@ -40,22 +42,22 @@ final class WebViewModel {
             }
         }
     }
-    
+
     @discardableResult
     func removeLastPageAdded() -> WebHistoryRecord? {
-        let LastPageAdded = pages.last
-        
+        let lastPageAdded = pages.last
+
         do {
-            if let LastPageAdded = LastPageAdded {
-                try realm.write{
-                    realm.delete(LastPageAdded)
+            if let lastPageAdded = lastPageAdded {
+                try realm.write {
+                    realm.delete(lastPageAdded)
                 }
                 if #available(iOS 14.0, *) {
                     Logger.deletingRecord.debug("record successfully deleted.")
                 } else {
                     os_log("record successfully deleted.", log: OSLog.default, type: .debug)
                 }
-                return LastPageAdded
+                return lastPageAdded
             }
         } catch let error {
             if #available(iOS 14.0, *) {
@@ -64,12 +66,11 @@ final class WebViewModel {
                 os_log("Failed to deleted.....", log: OSLog.default, type: .error)
             }
         }
-        return LastPageAdded
+        return lastPageAdded
     }
-    
+
     func isHistoryEmpty() -> Bool {
         let pages = realm.objects(WebHistoryRecord.self)
-        return pages.count == 0
+        return pages.isEmpty
     }
-    
 }
