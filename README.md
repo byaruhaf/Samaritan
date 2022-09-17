@@ -53,9 +53,9 @@ History is generated from the [webView.backForwardList](https://developer.apple.
 The state restoration framework intentionally discards any state information when the user manually kills an app, or when the state restoration process fails.
 These checks exist so that the app doesn’t get stuck in an infinite loop of bad states and restoration crashes.
 
-### Restore WKWebView navigation history
-
-![Restore](Demo/Restore.gif)
+|                              |                                                                        |
+| :--------------------------: | :--------------------------------------------------------------------- |
+| ![Restore](Demo/Restore.gif) | Demo showing restore of WKWebView navigation history during Relaunches |
 
 ### Zoom Implementation
 
