@@ -163,7 +163,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     @objc private func handleSwipe(recognizer: UISwipeGestureRecognizer) {
-        guard !isStarterViewSlideOut || !webView.canGoBack  else { return  }
+        guard viewTracker == .starterView || !webView.canGoBack  else { return  }
         if (recognizer.direction == .left) {
             navForward()
         }

@@ -8,22 +8,25 @@
 
 ## Overview
 
-Samaritan Browser
+Samaritan Browser, is an partial implementation of Safari functionality, which includes pages navigation and pages zoom features.
+This branch was Compiled with Xcode 14.0.0, Swift 5.7 and supports iOS 13 and above.
 
-## Gesture Implementation
+## Implementation Details
 
-## Persistence Implementation
+### Gesture Implementation
 
-### UserDefaults
+### Persistence Implementation
 
-### Realm
+#### UserDefaults
 
-## Zoom Implementation
+#### Realm
 
-### Alternatives Considered
+### Zoom Implementation
+
+#### Alternatives Considered
 
 pageZoom
 
-## Known issues
+### Known issues
 
 - WKWebView & Xcode 14 Bug
