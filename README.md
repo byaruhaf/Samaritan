@@ -44,14 +44,14 @@ The Apps Persistence is implemented using both UserDefaults and Realm
 
 UserDefaults is used to store the Zoom value to be restored for both App Restarts and App Relaunches.
 UserDefaults was selected because zoom levels tend to be device-specific.
-A user may use Zoom = 150 on an iPhone and Zoom = 85% on an iPad.
+A user may use Zoom = 150% on an iPhone and Zoom = 85% on an iPad.
 
 #### Realm
 
 Realm is used to store the webview navigation history to be restored for App Relaunches.
 History is generated from the [webView.backForwardList](https://developer.apple.com/documentation/webkit/wkwebview/1414977-backforwardlist) during the [encodeRestorableState(with:)](https://developer.apple.com/documentation/uikit/uiviewcontroller/1621461-encoderestorablestate)
 The state restoration framework intentionally discards any state information when the user manually kills an app, or when the state restoration process fails.
-These checks exist so that your app doesn’t get stuck in an infinite loop of bad states and restoration crashes.
+These checks exist so that the app doesn’t get stuck in an infinite loop of bad states and restoration crashes.
 
 ### Restore WKWebView navigation history
 
@@ -74,13 +74,13 @@ Here are a few alternative methods of zoom I tried out.
 ### Known issues
 
 - **WKWebView & Xcode 14 Bug**
-  On Xcode 14 you get the following warning if you are using WKWebView. The warning doesn't appear in Xcode 13.4.1
+  You get the following warning if you are using WKWebView. The warning doesn't appear in Xcode 13.4.1
   warning run: This method should not be called on the main thread as it may lead to UI unresponsiveness.
 
   ![Navigation](Demo/Bug2.png)
 
   Various Forums also reporting the same issue are listed below. At the moment there is no fix we just have to wait for Apple to Squash this Bug.
-  I have filled a bug report to Apple
+  I have submitted a bug report to Apple
 
   - https://developer.apple.com/forums/thread/712074
   - https://github.com/OneSignal/OneSignal-iOS-SDK/issues/1113
