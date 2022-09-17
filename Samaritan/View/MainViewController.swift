@@ -163,6 +163,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     @objc private func handleSwipe(recognizer: UISwipeGestureRecognizer) {
+        guard  !isFirstLoad  else { return }
         guard viewTracker == .starterView || !webView.canGoBack  else { return  }
         if (recognizer.direction == .left) {
             navForward()
@@ -274,7 +275,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     fileprivate func slideOut() {
-        UIView.animate(withDuration: 0.75, delay: 0.0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.8, delay: 0.01, options: .curveLinear, animations: {
             self.starterViewLeadingConstraint.constant = -2000
             self.starterViewTrailingConstraint.constant = 2000
             self.view.layoutIfNeeded()
@@ -286,7 +287,7 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     fileprivate func slideIn() {
-        UIView.animate(withDuration: 0.75, delay: 0.0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 1.8, delay: 0.01, options: .curveLinear, animations: {
             self.starterViewLeadingConstraint.constant = 0
             self.starterViewTrailingConstraint.constant = 0
             self.view.layoutIfNeeded()
