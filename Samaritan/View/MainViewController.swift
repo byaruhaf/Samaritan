@@ -67,8 +67,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         swipeLeftRecognizer.direction = .left
         swipeRightRecognizer.direction = .right
         self.starterView.addGestureRecognizer(swipeLeftRecognizer)
-        self.starterView.addGestureRecognizer(swipeRightRecognizer)
-        self.view.addGestureRecognizer(swipeLeftRecognizer)
         self.view.addGestureRecognizer(swipeRightRecognizer)
     }
     
