@@ -263,7 +263,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             self.viewTracker = .webview
             self.viewStateUpdate()
         })
-        viewStateUpdate()
     }
     
     fileprivate func slideIn() {
@@ -278,7 +277,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             self.viewTracker = .starterView
             self.viewStateUpdate()
         })
-        viewStateUpdate()
     }
     
     @IBAction private func welcomeButtonTapped(_ sender: Any) {
@@ -288,7 +286,6 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             webViewModel.savePageVisit(url: "Favorites")
         }
         isFirstLoad = false
-        viewStateUpdate()
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
