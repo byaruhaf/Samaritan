@@ -358,3 +358,34 @@ extension MainViewController {
         }
     }
 }
+
+
+extension MainViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let pan = gestureRecognizer as? UIPanGestureRecognizer {
+            let translation = pan.translation(in: pan.view)
+            if translation == .zero {
+                return false
+            } else {
+                return translation.x > 0.0
+            }
+        }
+        return false
+    }
+}
+
+
+
+//extension StarterViewController: UIGestureRecognizerDelegate {
+//    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if let pan = gestureRecognizer as? UIPanGestureRecognizer {
+//            let translation = pan.translation(in: pan.view)
+//            if translation == .zero {
+//                return false
+//            } else {
+//                return translation.x < 0.0
+//            }
+//        }
+//        return false
+//    }
+//}
