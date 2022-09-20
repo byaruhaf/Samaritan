@@ -61,13 +61,13 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     fileprivate func gestureSetup() {
-        webView.allowsBackForwardNavigationGestures = true
-        let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
-        let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
-        swipeLeftRecognizer.direction = .left
-        swipeRightRecognizer.direction = .right
-        self.starterView.addGestureRecognizer(swipeLeftRecognizer)
-        self.view.addGestureRecognizer(swipeRightRecognizer)
+//        webView.allowsBackForwardNavigationGestures = true
+//        let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
+//        let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
+//        swipeLeftRecognizer.direction = .left
+//        swipeRightRecognizer.direction = .right
+//        self.starterView.addGestureRecognizer(swipeLeftRecognizer)
+//        self.view.addGestureRecognizer(swipeRightRecognizer)
     }
     
     fileprivate func welcomeButtonSetUp() {
@@ -173,29 +173,29 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         viewStateUpdate()
     }
     
-    @objc private func handleSwipe(recognizer: UISwipeGestureRecognizer) {
-        guard  !isFirstLoad  else { return }
-        guard viewTracker == .starterView || !webView.canGoBack  else { return  }
-        if recognizer.direction == .left {
-            if !isRestoreActive {
-                navWebForward()
-                viewStateUpdate()
-            } else {
-                navHistoryForward()
-                viewStateUpdate()
-            }
-        }
+//    @objc private func handleSwipe(recognizer: UISwipeGestureRecognizer) {
+//        guard  !isFirstLoad  else { return }
+//        guard viewTracker == .starterView || !webView.canGoBack  else { return  }
+//        if recognizer.direction == .left {
+//            if !isRestoreActive {
+//                navWebForward()
+//                viewStateUpdate()
+//            } else {
+//                navHistoryForward()
+//                viewStateUpdate()
+//            }
+//        }
         
-        if recognizer.direction == .right {
-            if !isRestoreActive {
-                navWebBackward()
-                viewStateUpdate()
-            } else {
-                navHistoryBackward()
-                viewStateUpdate()
-            }
-        }
-    }
+//        if recognizer.direction == .right {
+//            if !isRestoreActive {
+//                navWebBackward()
+//                viewStateUpdate()
+//            } else {
+//                navHistoryBackward()
+//                viewStateUpdate()
+//            }
+//        }
+//    }
     
     @IBAction private func forwardButtonTapped(_ sender: Any) {
         if !isRestoreActive {
