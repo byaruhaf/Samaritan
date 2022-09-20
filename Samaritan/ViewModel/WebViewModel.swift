@@ -20,9 +20,10 @@ final class WebViewModel {
         self.pages = realm.objects(WebHistoryRecord.self)
     }
 
-    func savePageVisit(url: String?) {
+    func savePageVisit(url: String?, historyStatus: HistoryStatus) {
         let record = WebHistoryRecord()
         record.pageURL = url ?? ""
+        record.historyStatus = historyStatus
         record.visitDate = Date()
     
         do {
@@ -73,5 +74,66 @@ final class WebViewModel {
     func isHistoryEmpty() -> Bool {
         let pages = realm.objects(WebHistoryRecord.self)
         return pages.isEmpty
+    }
+    
+    func isForwardHistoryEmpty() -> Bool {
+        let allForward = realm.objects(WebHistoryRecord.self).where {
+            $0.historyStatus == .forward
+        }
+        return allForward.isEmpty
+    }
+    
+    func isBackwardHistoryEmpty() -> Bool {
+        let allForward = realm.objects(WebHistoryRecord.self).where {
+            $0.historyStatus == .back
+        }
+        return allForward.isEmpty
+    }
+
+    func moveBack() {
+        let lastBack = realm.objects(WebHistoryRecord.self).last { $0.historyStatus == .back }
+        let current = realm.objects(WebHistoryRecord.self).first { $0.historyStatus == .current }
+        try! realm.write {
+            lastBack?.historyStatus = .current
+            current?.historyStatus = .forward
+        }
+    }
+    
+    func moveForward() {
+        let current = realm.objects(WebHistoryRecord.self).first { $0.historyStatus == .current }
+        let lastForward = realm.objects(WebHistoryRecord.self).first { $0.historyStatus == .forward }
+        try! realm.write {
+            current?.historyStatus = .back
+            lastForward?.historyStatus = .current
+        }
+    }
+    
+    func getCurrent() -> String? {
+        let current = realm.objects(WebHistoryRecord.self).first { $0.historyStatus == .current }
+        if current == nil {
+            let favCurrent = realm.objects(WebHistoryRecord.self).first { $0.historyStatus == .none }
+            return favCurrent?.pageURL
+        }
+        return current?.pageURL
+    }
+    
+    func markAllForwardsOld() {
+        let allForward = realm.objects(WebHistoryRecord.self).where {
+            $0.historyStatus == .forward
+        }
+        try! realm.write {
+            allForward.forEach {
+                $0.historyStatus = .old
+            }
+        }
+    }
+    
+    func makeOld() {
+        let all = realm.objects(WebHistoryRecord.self)
+        try! realm.write {
+            all.forEach {
+                $0.historyStatus = .old
+            }
+        }
     }
 }

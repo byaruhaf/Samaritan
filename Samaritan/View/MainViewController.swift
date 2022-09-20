@@ -102,6 +102,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             forwardButton.isEnabled = true
         } else if webView.canGoForward {
             forwardButton.isEnabled = true
+        } else if !webViewModel.isForwardHistoryEmpty() {
+            forwardButton.isEnabled = true
         } else {
             forwardButton.isEnabled = false
         }
@@ -110,14 +112,27 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             backButton.isEnabled = false
         } else if webView.canGoBack || isStarterViewSlideOut {
             backButton.isEnabled = true
-        } else if !webViewModel.isHistoryEmpty() {
+        } else if !webViewModel.isBackwardHistoryEmpty() {
             backButton.isEnabled = true
         } else {
             backButton.isEnabled = false
         }
     }
     
-    fileprivate func navForward() {
+//    fileprivate func navForward() {
+//        if viewTracker == .starterView {
+//            slideOut()
+//            return
+//        }
+//        guard webView.canGoForward else {
+//            viewStateUpdate()
+//            return
+//        }
+//        webView.goForward()
+//        viewStateUpdate()
+//    }
+//
+    fileprivate func navWebForward() {
         if viewTracker == .starterView {
             slideOut()
             return
@@ -127,6 +142,13 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
             return
         }
         webView.goForward()
+        viewStateUpdate()
+    }
+    
+    fileprivate func navHistoryForward() {
+        webViewModel.moveForward()
+        guard let nextForwardURL = webViewModel.getCurrent() else { return }
+        webView.load(nextForwardURL)
         viewStateUpdate()
     }
     
@@ -141,8 +163,8 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     fileprivate func navHistoryBackward() {
-        webViewModel.removeLastPageAdded()
-        guard let nextBackURL = webViewModel.pages.last?.pageURL else { return }
+        webViewModel.moveBack()
+        guard let nextBackURL = webViewModel.getCurrent() else { return }
         if nextBackURL == "Favorites" {
             slideIn()
         } else {
@@ -155,7 +177,13 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
         guard  !isFirstLoad  else { return }
         guard viewTracker == .starterView || !webView.canGoBack  else { return  }
         if recognizer.direction == .left {
-            navForward()
+            if !isRestoreActive {
+                navWebForward()
+                viewStateUpdate()
+            } else {
+                navHistoryForward()
+                viewStateUpdate()
+            }
         }
         
         if recognizer.direction == .right {
@@ -170,15 +198,28 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     }
     
     @IBAction private func forwardButtonTapped(_ sender: Any) {
-        navForward()
-        viewStateUpdate()
+        if !isRestoreActive {
+            navWebForward()
+            viewStateUpdate()
+        } else {
+            navHistoryForward()
+            viewStateUpdate()
+        }
     }
     
     func saveHistory() {
         let bfList = webView.backForwardList
-        let items = bfList.backList + [bfList.currentItem].compactMap({ $0 })
-        items.forEach {
-            webViewModel.savePageVisit(url: $0.url.absoluteString)
+        let itemsBack = bfList.backList
+        itemsBack.forEach {
+            webViewModel.savePageVisit(url: $0.url.absoluteString, historyStatus: .back)
+        }
+        let itemsCurrentI = [bfList.currentItem].compactMap({ $0 })
+        itemsCurrentI.forEach {
+            webViewModel.savePageVisit(url: $0.url.absoluteString, historyStatus: .current)
+        }
+        let itemsForward = bfList.forwardList
+        itemsForward.forEach {
+            webViewModel.savePageVisit(url: $0.url.absoluteString, historyStatus: .forward)
         }
     }
     
@@ -282,8 +323,9 @@ class MainViewController: UIViewController, WKNavigationDelegate, UIScrollViewDe
     @IBAction private func welcomeButtonTapped(_ sender: Any) {
         slideOut()
         if isFirstLoad {
+            webViewModel.makeOld() // non session history is mead old
             webView.load(Konstant.URL.kagiURL)
-            webViewModel.savePageVisit(url: "Favorites")
+            webViewModel.savePageVisit(url: "Favorites", historyStatus: .none)
         }
         isFirstLoad = false
     }
