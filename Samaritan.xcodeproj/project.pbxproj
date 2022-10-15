@@ -739,7 +739,7 @@
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.29.0;
+				minimumVersion = 10.32.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
