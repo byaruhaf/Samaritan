@@ -1,6 +1,5 @@
 
 opt_in_rules:
-  - anyobject_protocol
   - array_init
   - closure_body_length
   - closure_spacing
@@ -11,7 +10,6 @@ opt_in_rules:
   - convenience_type
   - empty_count
   - explicit_init
-  - explicit_self
   - extension_access_modifier
   - empty_string
   - fallthrough
@@ -45,13 +43,13 @@ opt_in_rules:
   - toggle_bool
   - unneeded_parentheses_in_closure_argument
   - untyped_error_in_catch
-  - unused_import
   - vertical_parameter_alignment_on_call
   - vertical_whitespace_closing_braces
   - xct_specific_matcher
   - yoda_condition
 
 disabled_rules: # rule identifiers to exclude from running
+  - blanket_disable_command
   - closure_parameter_position
   - force_cast
   - line_length
